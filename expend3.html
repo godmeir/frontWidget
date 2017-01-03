@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>JS实现固定在右下角可展开收缩的DIV层</title>
+    <style type="text/css">
+        <!--
+        *{margin:0;padding:0;}
+        body{text-align:center;}
+        #main{border:red 1px solid;width:1000px;height:1600px;margin:0 auto;}
+        #main #scroll{width:250px;height:150px;border:green 1px solid;text-align:left;position:absolute;visibility:hidden;}
+        #main #scroll #open{float:left;text-align:center;width:180px;}
+        #main #scroll #close{float:right;}
+        -->
+    </style>
+</head>
+<body>
+<div id="main">
+    仅实现核心部分，至于内容自己完善，或者继续美化一下，应该不错！
+    <div id="scroll"><div id="open" onmouseover="openbox()"><a href="/" onclick="openbox()">欢迎光临</a><div id="close" class="zzsky"><marquee align="left" onmouseover="stop()" onmouseout="start()">欢迎提出宝贵建议！</marquee></div></div>
+        <div id="close"><a href="#" onclick="closebox()">关闭</a>
+            <script type="text/javascript">
+                <!--
+                var scroll=document.getElementById("scroll")
+                var main=document.getElementById("main")
+                var open=document.getElementById("open")
+                var close=document.getElementById("close")
+                scroll.style.visibility="visible"
+                function runright()
+                {
+                    /*这里-4主要是为了显示的比较好，因为我设置了边框*/
+                    scroll.style.top=document.body.scrollTop+document.body.clientHeight-scroll.clientHeight-4+"px"
+                    scroll.style.left=document.body.scrollLeft+document.body.clientWidth-scroll.clientWidth-4+"px"
+                    /*隔一段时间执行这个函数*/
+                    setTimeout("runright()",30)
+                }
+                /*关闭:设置高度一直减*/
+                function closebox()
+                {
+                    scroll.style.height=scroll.offsetHeight-4+"px"
+                    if (scroll.offsetHeight>20)
+                    {
+                        setTimeout("closebox()",5)
+                    }
+                    else
+                    {
+                        close.style.visibility="hidden"
+                    }
+                }
+                function openbox()
+                {
+                    if (scroll.offsetHeight<148)
+                    {
+                        close.style.visibility="visible"
+                        scroll.style.height=scroll.offsetHeight+2+"px"
+                        setTimeout("openbox()",5)
+                    }
+                }
+                runright();
+                //-->
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

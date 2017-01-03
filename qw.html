@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html style="height:100%;overflow:hidden">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title>NumberPicker</title>
+
+    <script src="js/thirds/jquery-2.0.2.min.js"></script>
+    <script src="js/mobiscroll.custom-3.0.0-beta2.min.js"></script>
+    <link rel="stylesheet" href="css/mobiscroll.custom-3.0.0-beta2.min.css">
+    <link rel="stylesheet" href="css/css.css">
+
+
+    <style>
+        /*html * { outline: 0; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0);}*/
+
+    </style>
+
+</head>
+
+<body id="wholeBody" style="margin:0;padding:0;width:100%;height:100%;overflow:hidden;background-color:#f0f0f0;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;" scroll="no">
+<input id="demo" placeholder="Please Select..." />
+</body>
+
+
+
+<script>
+
+    var setData = function () {
+        var data = [];
+        for (var i = 1;i<121;i++){
+            data.push(i+"瓶");
+        }
+        return data;
+    }
+
+    var instance,
+            units = ['oz', 'g', 'serving'],
+            prevUnit = 'oz',
+            wheel = [
+                [{
+                    circular: true,
+                    data: setData()
+                }]
+            ];
+
+    instance = mobiscroll.scroller('#demo', {
+        theme: 'ios',
+        lang: 'zh',
+        display: 'center',
+        wheels: wheel,
+        validate: function (event, inst) {
+            var i,
+                    mult = 1,
+                    index = event.index,
+                    currUnit = event.values[2],
+                    disabled = [];
+
+
+
+            if (index == 2 && currUnit != prevUnit) {
+                for (i = 0; i < wheel[0][0].data.length; ++i) {
+                    wheel[0][0].data[i] = Math.round(wheel[0][0].data[i] * mult);
+                }
+
+                inst.settings.wheels = wheel;
+                inst._tempWheelArray[0] = inst._tempWheelArray[0] * mult;
+                inst.changeWheel({
+                    0: wheel[0][0]
+                });
+
+                prevUnit = currUnit;
+            }
+
+            return {
+                disabled: [
+                    [], disabled, []
+                ]
+            }
+        },
+        parseValue: function (val) {
+            var hasUnit;
+
+            if (val) {
+                val = val.toString().split(' ');
+                hasUnit = units.indexOf(val[1]) !== -1;
+                return [val[0], '', ''];
+            }
+
+            return [0, '', ''];
+        },
+        formatValue: function (data) {
+            return (data[2] == 'serving' && data[0] == 0 && data[1] ? '' : data[0]) + (data[1] ? ' ' + data[1].replace('-', '') : '') + ' ' + data[2];
+        }
+    });
+</script>
+</html>

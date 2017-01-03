@@ -1,0 +1,48 @@
+body{
+    margin: 0;
+}
+
+.mbsc-android-holo-light .mbsc-fr-w, .mbsc-android-holo-light .mbsc-cal-sc-c{
+    background: #F0F0F0;
+}
+.mbsc-android-holo-light .mbsc-fr-w, .mbsc-android-holo-light .mbsc-fr-btn, .mbsc-android-holo-light .mbsc-sc-itm, .mbsc-android-holo-light .mbsc-range-btn, .mbsc-android-holo-light .mbsc-cal-tabs .mbsc-cal-tab-i{
+    color: #095AB5;
+}
+
+.mbsc-android-holo-light .mbsc-sc-whl-o {
+    background: -webkit-gradient(linear,left bottom,left top,from(#F0F0F0),color-stop(0.52,rgba(245,245,245,0)),color-stop(0.48,rgba(245,245,245,0)),to(#F0F0F0));
+    background: -webkit-linear-gradient(#F0F0F0,rgba(245,245,245,0) 52%,rgba(245,245,245,0) 48%,#F0F0F0);
+    background: linear-gradient(#F0F0F0,rgba(245,245,245,0) 52%,rgba(245,245,245,0) 48%,#F0F0F0);
+}
+.mbsc-android-holo-light .mbsc-sc-whl-l {
+    border-color: #F0F0F0;
+}
+.mbsc-android-holo .mbsc-sc-whl-l {
+    border-top: 1px solid #F0F0F0;
+    border-bottom: 1px solid #F0F0F0;
+}
+.mbsc-android-holo .mbsc-fr-w{
+    font-size: 2.5rem;
+    font-family: appleLight;
+}
+.mbsc-android-holo .mbsc-sc-whl-gr {
+    /*padding: 0.0625em 2em;*/
+    padding: 0;
+}
+
+
+.mbsc-android-holo .mbsc-dt-whl-h:after {
+    content: ':';
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    width: 4.25em;
+    height: 4.7em;
+    margin-top: -2.6em;
+    line-height: 6em;
+    font-size: 2rem;
+}
+
+
+
+
