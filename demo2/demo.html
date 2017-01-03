@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html style="height:100%;overflow:hidden">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title>10001</title>
+    
+    
+ 
+    <link rel="stylesheet" type="text/css" href="./css/pop.css">
+    <script src="js/jquery-2.0.2.min.js"></script>
+
+    <!--<script type="text/javascript" src="../../cordova.js"></script>
+        <script type="text/javascript" src="./js/cordovainit.js"></script>-->
+    <style>
+        @font-face{
+        font-family:'appleUltralight';
+        src:url('../../font/SF-UI-Display-Ultralight.otf');
+        }
+
+        @font-face{
+        font-family:'appleLight';
+        src:url('../../font/SF-UI-Display-Light.otf');
+        }
+    </style>
+
+</head>
+<body style="margin:0;padding:0;width:100%;height:100%;overflow:hidden;background-color:#f4f4f4;"
+      scroll="no">
+<div id="bodyAll" style="width:100%;height:100%" >
+    <div id="bottom"
+         style="display:block;text-align:center;position:absolute;bottom:1rem;width:100%">
+
+        <table border=0 style="width:100%">
+            <tr><td>
+                <div id="trigger-overlay" style="float:left;padding-left:1rem" >
+                    <img src="img/func.png" style="height:4.5rem;"/>
+                    <div id="txtFunc" style="display:block;">Func</div>
+                </div>
+            </td><td>
+
+            </td><td>
+                <div id="voice" style="float:right;padding-right:1rem">
+                    <img  src="img/voice.png" style="height:4.5rem;float:right"/>
+                    <div id="txtVoice" style="display:block;">Voice</div>
+                </div>
+            </td></tr>
+        </table>
+    </div>
+
+</div>
+<div id="mask"
+     style="display:none;position: absolute; margin: 0px; opacity: 0.600813; left: 0px; top: 0px; width: 100%; height: 100%; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px); background-color: rgb(0, 0, 0); background-size: 100% 100%;">
+</div>
+
+<div id="maskpoweroff"
+     style="display:none;position: absolute; margin: 0px; opacity: 0.000813; left: 0px; top: 0px; width: 100%; height: 100%; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(255, 255, 255, 255); transform: translateZ(0px); background-color: rgb(255, 255, 255); background-size: 100% 100%;">
+</div>
+
+
+
+<!-- open/close -->
+<div class="overlay overlay-corner">
+    <div id="pop">
+        <div class="overlay-close"></div>
+        <table>
+            <tr>
+                <td>
+                    <div><img id="imgAir" src="img/3.png"/></div>
+                    <div id="txtClean">除菌</div>
+                </td>
+                <td>
+                    <div><img id="imgDry" src="img/2.png"/></div>
+                    <div id="txtIntell">智能</div>
+                </td>
+                <td>
+                    <div><img id="imgHealth" src="img/4.png"/></div>
+                    <div id="txtStorageOpen">冷藏室关闭</div>
+                </td>
+                <td>
+                    <div><img id="imgLight" src="img/1.png"/></div>
+                    <div id="txtVaryOpen">变温室关闭</div>
+                </td>
+            </tr>
+            <!-- <tr>
+                <td>
+                    <div><img id="imgSE" src="img/5.png"/></div>
+                    <div id="txtSE">SE</div>
+                </td>
+                <td>
+                    <div><img id="imgUR" src="img/6.png"/></div>
+                    <div id="txtUR">up&right</div>
+                </td>
+                <td>
+                    <div><img id="imgLD" src="img/8.png"/></div>
+                    <div id="txtLD">left&down</div>
+                </td>
+                <td>
+                    <div><img id="imgTimer" src="img/7.png"/></div>
+                    <div id="txtTimer">Timer</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div><img id="img8heat" src="img/advance_n_8heat.png"/></div>
+                    <div id="txt8heat">8℃ heating</div>
+                </td>
+                <td>
+
+                    <div><img id="imgSleep" src="img/advance_n_sleep.png"/></div>
+                    <div id="txtSleep">Sleep</div>
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr> -->
+        </table>
+    </div>
+</div>
+
+<script src="./js/utils.js"></script>
+
+
+<script src="./js/func.js"></script>
+<!--<script src="js/main.js"></script>-->
+
+</body>
+</html>

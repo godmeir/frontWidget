@@ -1,0 +1,38 @@
+#wholeBody{
+
+}
+/*总宽度*/
+.mbsc-mobiscroll,.mbsc-fr-inline, .mbsc-fr-nobtn{
+    width: 100%;
+    display: inline;
+}
+.mbsc-mobiscroll .mbsc-sc-whl-l{
+    border-top: 1px solid #34e343;
+    border-bottom: 1px solid #34e343;
+}
+/*单个的宽度*/
+#p1 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 20%;
+    background-color: rebeccapurple;
+    color: red;
+}
+#p2 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 20%;
+    left: 25%;
+}
+#p3 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 20%;
+    left: 50%;
+}
+#p4 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 20%;
+    left: 75%;
+}
+.inputValue{
+    width: 50%;
+    display: none;
+}
+.warpper{
+    float: left;
+    width: 25%;
+}

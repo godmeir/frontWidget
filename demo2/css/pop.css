@@ -1,0 +1,77 @@
+/* Overlay style */
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 20%;
+	top: 80%;
+	left: 0;
+	background: white;
+}
+
+/* Overlay closing cross */
+/*下拉箭头*/
+.overlay .overlay-close {
+	width: 100%;
+	height: 1rem;
+	position: absolute;
+	overflow: hidden;
+	border: none;
+	background:url(../img/downr.png) no-repeat center center;
+	text-indent: 200%;
+	color: transparent;
+	outline: none;
+	z-index: 100;
+	background-size:contain;
+	
+}
+
+/* table style */
+#pop
+{
+	display:block;
+text-align:center;
+height:100%;
+}
+#pop table
+{
+	
+	width:100%;
+	height:100%;
+	color:#404657;
+	font-size:1rem;
+}
+
+#pop img
+{
+	height:4rem;
+}
+
+
+/* Effects */
+.overlay-corner {
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transform: translateY(50px) translateX(00px);
+	transform: translateY(50px) translateX(0px);
+	-webkit-transition: opacity 0.2s, -webkit-transform 0.2s, visibility 0s 0.2s;
+	transition: opacity 0.2s, transform 0.2s, visibility 0s 0.2s;
+}
+
+.overlay-corner.open {
+	opacity: 1;
+	visibility: visible;
+	-webkit-transform: translateY(0%);
+	transform: translateY(0%);
+	-webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+	transition: opacity 0.5s, transform 0.5s;
+}
+
+@media screen and (max-height: 30.5em) {
+	.overlay nav {
+		height: 70%;
+		font-size: 34px;
+	}
+	.overlay ul li {
+		min-height: 34px;
+	}
+}
