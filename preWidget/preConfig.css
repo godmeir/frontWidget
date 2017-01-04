@@ -1,0 +1,70 @@
+* {
+    margin:0;
+    padding:0;
+}
+body {
+    text-align:center;
+}
+.expendTitle {
+    font:5em Arial, Helvetica, sans-serif;
+    height: 80px;
+    text-align:left;
+    font-weight:bolder;
+    background:#333;
+    padding:3px;
+    display:block;
+    color:#99CC00
+}
+.div_www_zzjs_net {
+    width:100%;
+    background:#CCC;
+    position:relative;
+    margin:0 auto;
+    padding:5px;
+}
+span {
+    font:5em Arial, Helvetica, sans-serif;
+    position:absolute;
+    right:10px;
+    top:8px;
+    cursor: pointer;
+    color:yellow;
+}
+
+#big_wwwzzjsnet {
+    height:300px;
+    overflow:hidden;
+    display:none;
+    text-align:left;
+    line-height:20px;
+    padding:3px;
+    margin-top:5px;
+    color:#99CC00
+}
+
+
+/*总宽度*/
+.mbsc-mobiscroll,.mbsc-fr-inline, .mbsc-fr-nobtn{
+    width: 100%;
+    display: inline;
+}
+.mbsc-mobiscroll .mbsc-sc-whl-l{
+    border-top: 1px solid #34e343;
+    border-bottom: 1px solid #34e343;
+}
+/*单个的宽度*/
+#p1 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 60rem;
+    font-size: 3rem;
+    background-color: #000000;
+    color: greenyellow;
+}
+
+.inputValue{
+    width: 100%;
+    display: none;
+}
+.warpper{
+    float: left;
+    width: 100%;
+}

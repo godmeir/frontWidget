@@ -1,0 +1,84 @@
+<html>
+<head>
+    <meta name="keywords" content="站长,网页特效,网页特效代码,js特效,js脚本,脚本,广告代码,zzjs,zzjs.net,www.zzjs.net,站长特效 网" />
+    <meta name="description" content="www.zzjs.net,站长特效网，站长必备js特效及广告代码。以质量为核心，以实用为目的,全力打造一流网页特效站" />
+    <title>定时控件</title>
+
+    <script src="../js/thirds/jquery-2.0.2.min.js"></script>
+    <script src="../js/mobiscroll.custom-3.0.0-beta2.min.js"></script>
+    <link rel="stylesheet" href="../css/mobiscroll.custom-3.0.0-beta2.min.css">
+    <link rel="stylesheet" href="../css/css.css">
+    <link rel="stylesheet" href="preConfig.css">
+    <script src="preConfig.js"></script>
+
+</head>
+<body>
+<div class="div_www_zzjs_net">
+    <div class="expendTitle">预约完成时间</div>
+    <span id="wwwzzjsnet" onClick="$use('big_wwwzzjsnet','wwwzzjsnet')">展开</span>
+    <p id="big_wwwzzjsnet">
+        <!--<input id="demo" style="display: none" placeholder="Please Select..." />-->
+    <div id="p1" class="warpper">
+        <input id="scroller1" class="inputValue" />
+    </div>
+    </p>
+</div>
+<!--<div class="div_www_zzjs_net">-->
+    <!--<div class="expendTitle">预约完成时间</div>-->
+    <!--<span id="wwwzzjsnet1" onClick="$use('big_wwwzzjsnet1','wwwzzjsnet1')">展开</span>-->
+    <!--<p id="big_wwwzzjsnet1">-->
+        <!--&lt;!&ndash;<input id="demo1" style="display: none" placeholder="Please Select..." />&ndash;&gt;-->
+
+    <!--</p>-->
+<!--</div>-->
+</body>
+<script>
+    mobiscroll.scroller('#scroller1', {
+        theme: 'mobiscroll',
+        display: 'inline',
+        showLabel: false,
+        rows: 3,
+        closeOnOverlayTap: true,
+//        onBeforeShow: function (event, inst) {
+//            alert("显示弹窗");
+//        },
+//        onBeforeClose: function (event, inst) {
+//            alert("关闭弹窗");
+//        },
+        onItemTap: function (event, inst) {
+            alert("点击"+inst.getVal(true));
+//            inst.hide(true);
+        },
+        wheels: [
+            [{
+                label: 'Second wheel',
+                data: [{
+                    value: 0,
+                    display: 'a'
+                }, {
+                    value: 1,
+                    display: 'b'
+                }, {
+                    value: 2,
+                    display: 'c'
+                }, {
+                    value: 3,
+                    display: 'd'
+                }]
+            }]
+        ]
+    });
+//    mobiscroll.time('#demo', {
+//        theme: 'mobiscroll',
+//        display: 'inline',
+//        timeFormat: 'HH:ii',
+//        timeWheels: 'HH:ii'
+//    });
+//    mobiscroll.time('#demo1', {
+//        theme: 'mobiscroll',
+//        display: 'inline',
+//        timeFormat: 'HH:ii',
+//        timeWheels: 'HH:ii'
+//    });
+</script>
+</html>

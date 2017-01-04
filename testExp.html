@@ -1,0 +1,88 @@
+<html>
+<head>
+    <meta name="keywords" content="站长,网页特效,网页特效代码,js特效,js脚本,脚本,广告代码,zzjs,zzjs.net,www.zzjs.net,站长特效 网" />
+    <meta name="description" content="www.zzjs.net,站长特效网，站长必备js特效及广告代码。以质量为核心，以实用为目的,全力打造一流网页特效站" />
+    <title>站长特效 js实现div展开收缩效果 站长特效网</title>
+    <style>
+        * { margin:0; padding:0;}
+        body { text-align:center; font:75% Verdana, Arial, Helvetica, sans-serif;}
+        h1 { font:125% Arial, Helvetica, sans-serif; text-align:left; font-weight:bolder; background:#333;  padding:3px; display:block; color:#99CC00}
+        .div_www_zzjs_net { width:40%; background:#CCC; position:relative; margin:0 auto; padding:5px;}
+        span { position:absolute; right:10px; top:8px; cursor: pointer; color:yellow;}
+        p { text-align:left; line-height:20px; background:#333; padding:3px; margin-top:5px; color:#99CC00}
+        #big_wwwzzjsnet { height:300px;overflow:hidden;display:none;}
+    </style>
+
+    <script src="js/thirds/jquery-2.0.2.min.js"></script>
+    <script src="js/mobiscroll.custom-3.0.0-beta2.min.js"></script>
+    <link rel="stylesheet" href="css/mobiscroll.custom-3.0.0-beta2.min.css">
+    <link rel="stylesheet" href="css/css.css">
+
+    <script>
+        function $(element){
+            return element = document.getElementById(element);
+        }//欢迎来到站长特效c网，我们的网址是www.zzjs.net，很好记，zz站长，js就是js特效，.net打造靓站，还有许多广告代码下载。
+        function $D(){
+            var d=$('big_wwwzzjsnet');
+            var h=d.offsetHeight;
+            var maxh=300;
+            function dmove(){
+                h+=50; //设置层展开的速度
+                if(h>=maxh){
+                    d.style.height='800px';
+                    clearInterval(iIntervalId);
+                }else{
+                    d.style.display='block';
+                    d.style.height=h+'px';
+                }//欢迎来到站长g特效网，我们的网址是www.zzjs.net，很好记，zz站长，js就是js特效，.net打造靓站，还有许多广告代码下载。
+            }
+            iIntervalId=setInterval(dmove,2);
+        }//欢迎来到站长特q效网，我们的网址是www.zzjs.net，很好记，zz站长，js就是js特效，.net打造靓站，还有许多广告代码下载。
+        function $D2(){
+            var d=$('big_wwwzzjsnet');
+            var h=d.offsetHeight;
+            var maxh=300;
+            function dmove(){
+                h-=50;//设置层收缩的速度
+                if(h<=0){
+                    d.style.display='none';
+                    clearInterval(iIntervalId);
+                }else{
+                    d.style.height=h+'px';
+                }
+            }//欢迎来到站长特z效网，我们的网址是www.zzjs.net，很好记，zz站长，js就是js特效，.net打造靓站，还有许多广告代码下载。
+            iIntervalId=setInterval(dmove,2);
+        }//欢迎来到站x长特效网，我们的网址是www.zzjs.net，很好记，zz站长，js就是js特效，.net打造靓站，还有许多广告代码下载。
+        function $use(targetid,objN){
+            var d=$(targetid);
+            var sb=$(objN);
+            if (d.style.display=="block"){
+                $D2();
+                d.style.display="none";
+                sb.innerHTML="展开";
+            } else {
+                $D();
+                d.style.display="block";
+                sb.innerHTML='收缩';
+            }
+        }//欢迎来到站长特效网，我们的网址是www.zzjs.net，很好记，zz站长，js就是js特效，.net打造靓站，还有许多广告代码下载。
+    </script>
+</head>
+<body>
+<div class="div_www_zzjs_net">
+    <h1>div展开收缩效果</h1>
+    <span id="wwwzzjsnet" onClick="$use('big_wwwzzjsnet','wwwzzjsnet')">展开</span>
+    <p id="big_wwwzzjsnet">小蜗牛问妈妈：为什么我们从生下来，就要背负这个又硬又重的壳呢？<br />
+        <input id="demo" style="display: none" placeholder="Please Select..." />
+    </p>
+</div>
+</body>
+<script>
+    mobiscroll.time('#demo', {
+        theme: 'mobiscroll',
+        display: 'inline',
+        timeFormat: 'HH:ii',
+        timeWheels: 'HHii'
+    });
+</script>
+</html>
