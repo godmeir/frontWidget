@@ -7,7 +7,7 @@
     <script src="../js/thirds/jquery-2.0.2.min.js"></script>
     <script src="../js/mobiscroll.custom-3.0.0-beta2.min.js"></script>
     <link rel="stylesheet" href="../css/mobiscroll.custom-3.0.0-beta2.min.css">
-    <link rel="stylesheet" href="../css/css.css">
+    <!--<link rel="stylesheet" href="../css/css.css">-->
     <link rel="stylesheet" href="preConfig.css">
     <script src="preConfig.js"></script>
 
@@ -23,44 +23,144 @@
     </div>
 </div>
 
+<div class="div_www_zzjs_net">
+    <div class="expendTitle">预约完成时间</div>
+    <span id="wwwzzjsnet1" onClick="$use('big_wwwzzjsnet1','wwwzzjsnet1')">展开</span>
+    <div id="big_wwwzzjsnet1">
+        <div id="p2" class="warpper">
+            <input id="scroller2" class="inputValue" />
+        </div>
+    </div>
+</div>
+
 </body>
 <script>
-    mobiscroll.scroller('#scroller1', {
-        theme: 'mobiscroll',
-        display: 'inline',
-        showLabel: false,
-        height:100,
-        rows: 3,
-        closeOnOverlayTap: true,
-//        onBeforeShow: function (event, inst) {
-//            alert("显示弹窗");
+//    mobiscroll.scroller('#scroller1', {
+//        theme: 'mobiscroll',
+//        display: 'inline',
+//        showLabel: false,
+//        height:100,
+//        rows: 3,
+//        closeOnOverlayTap: true,
+////        onBeforeShow: function (event, inst) {
+////            alert("显示弹窗");
+////        },
+////        onBeforeClose: function (event, inst) {
+////            alert("关闭弹窗");
+////        },
+//        onItemTap: function (event, inst) {
+//            alert("点击"+inst.getVal(true));
+////            inst.hide(true);
 //        },
-//        onBeforeClose: function (event, inst) {
-//            alert("关闭弹窗");
+//        wheels: [
+//            [{
+//                label: 'Second wheel',
+//                data: [{
+//                    value: 0,
+//                    display: '18:30'
+//                }, {
+//                    value: 1,
+//                    display: '19:00'
+//                }, {
+//                    value: 2,
+//                    display: '19:30'
+//                }, {
+//                    value: 3,
+//                    display: '10:00'
+//                }]
+//            }]
+//        ]
+//    });
+//    mobiscroll.show();
+//
+//    mobiscroll.scroller('#scroller2', {
+//        theme: 'mobiscroll',
+//        display: 'inline',
+//        showLabel: false,
+//        height:100,
+//        rows: 3,
+//        closeOnOverlayTap: true,
+////        onBeforeShow: function (event, inst) {
+////            alert("显示弹窗");
+////        },
+////        onBeforeClose: function (event, inst) {
+////            alert("关闭弹窗");
+////        },
+//        onItemTap: function (event, inst) {
+//            alert("点击"+inst.getVal(true));
+////            inst.hide(true);
 //        },
-        onItemTap: function (event, inst) {
-            alert("点击"+inst.getVal(true));
-//            inst.hide(true);
-        },
-        wheels: [
-            [{
-                label: 'Second wheel',
-                data: [{
-                    value: 0,
-                    display: '18:30'
-                }, {
-                    value: 1,
-                    display: '19:00'
-                }, {
-                    value: 2,
-                    display: '19:30'
-                }, {
-                    value: 3,
-                    display: '10:00'
-                }]
-            }]
-        ]
-    });
+//        wheels: [
+//            [{
+//                label: 'Second wheel',
+//                data: [{
+//                    value: 0,
+//                    display: '18:30'
+//                }, {
+//                    value: 1,
+//                    display: '19:00'
+//                }, {
+//                    value: 2,
+//                    display: '19:30'
+//                }, {
+//                    value: 3,
+//                    display: '10:00'
+//                }]
+//            }]
+//        ]
+//    });
+//    mobiscroll.show();
+
+    console.log(getOrderTime(310));
+
+function getOrderTime(timeLeft) {
+    var hour = Math.ceil(timeLeft / 60);
+
+    var orderArr = [];
+    var dataObj0 = new Object();
+    dataObj0.value = 0;
+    dataObj0.display = "00" +":00";
+    orderArr.push(dataObj0);
+    for (var start = hour; start <24; start++){
+        var dataObj = new Object();
+        var dataObj1 = new Object();
+        var dataObj2 = new Object();
+        var hourTxt;
+        var timeAll;
+        if (start<10){
+            hourTxt = "0" + start;
+        }else {
+            hourTxt = "" + start;
+        }
+        timeAll = start * 60;
+
+        dataObj1.value = timeAll;
+        dataObj1.display = hourTxt +":00";
+        orderArr.push(dataObj1);
+
+        timeAll = start * 60 + 30 ;
+        dataObj2.value = timeAll;
+        dataObj2.display = hourTxt +":30";
+        orderArr.push(dataObj2);
+
+        if (start == 23){
+            timeAll = 24 * 60 ;
+            dataObj.value = timeAll;
+            dataObj.display = "24" +":00";
+            orderArr.push(dataObj);
+        }
+
+    }
+    return orderArr;
+}
+
+    function getFoamatTime(timeLeft) {
+        var hour = Math.floor(timeLeft / 60);
+        if (hour<10) hour = "0" + hour;
+        var minute = timeLeft % 60;
+
+        return hour +" : " + minute
+    }
 
 </script>
 </html>

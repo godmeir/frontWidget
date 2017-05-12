@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    var obj = {
+        a:function (x) {
+            alert(x+"----a");
+        }
+    }
+
+   var org = obj.a;
+
+
+
+    obj.a = function b(x) {
+        alert(x+"----b");
+        org.apply(this,arguments);
+    }
+
+    obj.a("haha");
+</script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+/***********Mask************/
+.control_mask{
+    visibility: visible;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+    top: 0%;
+    background: url(../img/powe_error_bg.png);
+    background-size: cover;
+
+}
+.control_mask .title{
+    position: relative;
+    width: 100%;
+    height: 6%;
+    top: 0%;
+}
+
+#errorDetails{
+    position: absolute;
+    top: 45%;
+    left: 2%;
+    width: 96%;
+    text-align: center;
+    font-size: 12px;
+    font-family: "黑体";
+}
+
+.mulErCode{
+    color: red;
+    font-family: appleUltralight;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 10px;
+
+}
+.mulEr{
+    color: #222222;
+    font-family: 黑体;
+    font-size: 15px;
+    font-weight: 100;
+    /*line-height: 15px;*/
+    width: 90%;
+}
+
+
+/***********************/
+.title {
+    position: relative;
+    width: 100%;
+    height: 10%;
+    top: 0%;
+
+}
+.upPage{
+    position: relative;
+    height: 53%;
+    width: 100%;
+    background-image: url(../img/mode_bg_1.png);
+    background-size: cover;
+}
+.title button {
+    float: left;
+    position: relative;
+    width: 25%;
+    height: 100%;
+}
+.title div {
+    position: absolute;
+    height: 100%;
+    left: 25%;
+    width: 50%;
+    text-align: center;
+
+}
+
+#middle {
+    position: relative;
+    width: 100%;
+    height: 88%;
+    top: 0px;
+    text-align: center;
+}
+
+#pop_washText1,#pop_washText2,#pop_washText3,#pop_washText4,#pop_washText5,#pop_washText6{
+    font-size: 16px;
+    font-family: appleUltralight;
+    line-height: 12px;
+}
+
+.bottomTab{
+    position: absolute;
+    width: 25%;
+    height: 30%;
+    left: 0px;
+    bottom: 20px;
+    background-color: #f4f4f4;
+}
+.footer button img{
+    width: 70%;
+}
+
+.footer {
+    position: relative;
+    width: 100%;
+    height: 47%;
+    bottom: 0px;
+}
+
+.edit-img{
+    position: relative;
+    width: 10px;
+    height: 10px;
+    top: 25%;
+}
+
+
+
+.middleDiv{
+    position: absolute;
+    top:10%;
+    text-align: center;
+    width: 100%;
+    height: 35%;
+    color: white;
+    margin: 0px;
+}
+.timeShow{
+    position: absolute;
+    font-family: appleUltralight;
+    width: 100%;
+    color: white;
+    margin: 0px;
+    bottom: 0px;
+    font-size: 4.6rem;
+}
+.small-text-time{
+    position: absolute;
+    left: 35%;
+    margin: 0px;
+    width: 100%;
+    font-family: appleLight;
+    color: white;
+    bottom: 10px;
+    font-size: 15px;
+}
+.bottom-single-item{
+    position: absolute;
+    width: 26%;height: 30%;
+    left:37%;
+    bottom: 20px;
+    background-size: 100%;
+}
+
+
+
+/*总宽度*/
+.mbsc-mobiscroll,.mbsc-fr-inline, .mbsc-fr-nobtn{
+    width: 100%;
+    display: inline;
+}
+.mbsc-mobiscroll .mbsc-sc-whl-l{
+    border-top: 1px solid #34e343;
+    border-bottom: 1px solid #34e343;
+}
+/*单个的宽度*/
+#s1 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 20%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+}
+#s2 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 20%;
+    left: 25%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+}
+#s3 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 20%;
+    left: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+}
+#s4 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 20%;
+    left: 75%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+}
+#s5 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 20%;
+    left: 0%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+}
+#s6 .mbsc-mobiscroll .mbsc-fr-w{
+    min-width: 20%;
+    left: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+
+
+
+#p1 .mbsc-mobiscroll .mbsc-fr-w{
+    background-color: rgba(255, 255, 255, 0);
+    color: #66666699;
+    width: 100%;
+}
+#p1 .mbsc-mobiscroll .mbsc-sc-whl-gr{
+    padding: 0.5em 0em 0em 0em;
+}
+
+
+#p1 .mbsc-mobiscroll .mbsc-sc-whl-l {
+     border-top: none;
+     border-bottom: none;
+    background-color: #eeeeee;
+}
+#p1 .mbsc-mobiscroll .mbsc-sc-whl-l {
+     border-top: none;
+     border-bottom: none;
+    background-color: #eeeeee;
+}
+#p1 .mbsc-mobiscroll .mbsc-sc-whl-w {
+     margin: 0 0;
+}
+
+#orderTxt{
+    position: absolute;
+    top: 5%;
+    left: 3%;
+    font-size: 1rem;
+    color: rgba(0,0,0,0.6);
+    font-family: "黑体";
+}
+
+/**************POP***************/
+
+.advBtn{
+    position: relative;
+    height: 65%;
+    width: 60%;
+    background-image:url(../img/adv_creaseRes_unset.png) ;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100%
+}

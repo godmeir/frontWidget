@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>制作一幅扑克牌--黑桃10</title>
+    <style type="text/css"><!--
+    .card{width:125px;height:170px; position:absolute;overflow:hidden;border:1px #c0c0c0 solid;}
+    /*中间图片通用设置*/
+    span{display:block;width:20px;height:21px; position:absolute;background:url(http://www.blueidea.com//articleimg/2009/02/6382/00.gif) no-repeat;}
+    /*小图片通用设置*/
+    b{display:block;width:15px;height:10px; position:absolute;font-size:10pt;text-align:center;font-weight:bold;background:url(http://www.blueidea.com//articleimg/2009/02/6382/00.gif) no-repeat; overflow:hidden;}
+    /*数字通用设置*/
+    em{display:block;width:15px;height:10px; position:absolute;font-size:10pt;text-align:center;font-weight:bold;background:url(http://www.blueidea.com//articleimg/2009/02/6382/00.gif) no-repeat;overflow:hidden;}
+    /*各坐标点位置*/
+    .N1{left:1px;top:8px;}
+    .First{left:5px;top:20px;}
+    .A1{left:20px;top:20px;}
+    .A2{left:20px;top:57px;}
+    .A3{left:20px;top:94px;}
+    .A4{left:20px;top:131px;}
+    .B1{left:54px;top:38px;}
+    .B2{left:54px;top:117px;}
+    .C1{left:86px;top:20px;}
+    .C2{left:86px;top:57px;}
+    .C3{left:86px;top:94px;}
+    .C4{left:86px;top:131px;}
+    .Last{bottom:20px;right:0px;}
+    .N2{bottom:8px;right:5px;
+    }
+    /*大图标黑红梅方四种图片-上方向*/
+    .up1{background-position:0 1px;}/*黑桃*/
+    /*大图标黑红梅方四种图片-下方向*/
+    .down1{background-position:0 -19px;}/*黑桃*/
+    /*小图标黑红梅方四种图片-上方向*/
+    .small_up1{background-position:0 -40px;}/*黑桃*/
+    /*小图标黑红梅方四种图片-下方向*/
+    .small_down1{background-position:0 -51px;}/*黑桃*/
+    /*A~k数字图片-左上角*/
+    .n10{background-position:-191px 0px;left:-4px;width:21px;}
+    /*A~k数字图片-右下角*/
+    .n10_h{background-position:-191px -22px;right:3px;width:21px;}
+    /*A~k数字图片-左上角红色字*/
+    .n10_red{background-position:-191px 0px;}
+    /*A~k数字图片-右下角红色字*/
+    .n10_h_red{background-position:-191px -33px;}
+    -->
+    </style>
+
+</head>
+
+<body>
+<!--10字符-->
+<div class="card">
+    <div class="front">
+        <b class="N1 n10"></b>
+        <em class="First small_up1"></em>
+        <span class="A1 up1"></span>
+        <span class="A2 up1"></span>
+        <span class="A3 down1"></span>
+        <span class="A4 down1"></span>
+
+        <span class="B1 up1"></span>
+        <span class="B2 down1"></span>
+
+        <span class="C1 up1"></span>
+        <span class="C2 up1"></span>
+        <span class="C3 down1"></span>
+        <span class="C4 down1"></span>
+        <em class="Last small_down1"></em>
+        <b class="N2 n10_h"></b>
+    </div>
+</div>
+</body>
+</html>

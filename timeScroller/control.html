@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html style="height:100%;overflow:hidden">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport"
+              content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" href="css/controlView.css">
+        <link rel="stylesheet" href="css/mobiscroll.min.css">
+        <link rel="stylesheet" href="css/pop.css">
+        <link rel="stylesheet" href="css/mode.css">
+        <link rel="stylesheet" href="css/voice.css">
+        <script src="js/carousel-1.0.js"></script>
+        <!--安卓机需要放开接口-->
+        <script type="text/javascript" src="../../cordova.js"></script>
+        <script type="text/javascript" src="js/cordovainit.js"></script>
+
+        <link rel="stylesheet" href="css/carousel-1.0.css">
+        <link href="css/ProgressBarWars.css" rel="stylesheet" />
+        <title>洗衣机</title>
+
+        <style>
+            button{
+                border: none;
+                background: none;
+
+            }
+            html * {
+                outline: 0;
+                -webkit-text-size-adjust: none;/*而设置了以上代码后，字体只会显示你当前设置的字体大小，不会随着网页放大而变大了!-webkit-text-size-adjust放在body上会导致页面缩放失效*/
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            }
+
+            @font-face {
+                font-family: 'PingFangMedium';
+                src: url('../../font/PingFang-Medium.ttf');
+            }
+
+            @font-face {
+                font-family: 'appleUltralight';
+                src: url('../../font/SF-UI-Display-Ultralight.otf');
+            }
+
+            @font-face {
+                font-family: 'appleLight';
+                src: url('../../font/SF-UI-Display-Light.otf');
+            }
+        </style>
+    </head>
+    <body style="margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;background-color:#f4f4f4;"
+          scroll="no">
+    <!-- 加载界面 -->
+    <div id="loading"
+         style="position: absolute; margin: 0px; opacity: 1; left: 0px; top: 0px; width: 100%; height: 100%; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px); background-color: rgb(255, 255, 255); background-size: 100% 100%;text-align:center;z-index:999">
+        <img src="./img/loading.gif"  style="height:7rem;margin-top:65%"/>
+    </div>
+
+    <!-- 加载界面 -->
+    <div id="ControlLoading"
+         style="display: none;position: absolute; margin: 0px; opacity: 0.600813; left: 0px; top: 0px; width: 100%; height: 100%; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px); background-color: rgb(0, 0, 0); background-size: 100% 100%;text-align:center;z-index:1999">
+        <img src="./img/controlLoading.gif"  style="height:3rem;margin-top:65%"/>
+    </div>
+
+    <!-- 关机页面 -->
+    <div id="powerMask"
+         class="control_mask" style="visibility: hidden"  >
+        <div class="title" style="z-index: 1001">
+            <button id="powerMaskBack"  onclick="controlOBJ.powerOffBack_click(this)"
+                    style="background:none;text-align: left;">
+                <img style="margin-left: 10px;height: 70%;" src="img/back.png">
+            </button>
+            <div>
+                <span id="powerName" style="color:white;font-size: 20px;position: relative;top: 25%;bottom: 25%;">洗衣机</span>
+            </div>
+        </div>
+        <button id="powerMaskOpen" onclick="controlOBJ.powerOffOpen_click(this)"
+                style="position: absolute;width: 30%;height:25%;top: 30%;left: 35%;background: url(img/power_off.png) center center;background-repeat: no-repeat;background-size: 100%;">
+            <p style="margin: 0px;font-size: 1.5rem;"></p>
+        </button>
+
+        <div class="footer" style="background: none;top: 47%">
+            <button id="powerVoice" class="bottom-single-item">
+                <img src="img/voice.png">
+                <p style="margin: 0px;font-size: 1rem;">语音</p>
+            </button>
+        </div>
+
+        <!--<img src="img/power_off.png" style="position: absolute;width: 30%;top: 35%;left: 35%;">-->
+    </div>
+    <!-- 故障界面 -->
+    <div id="errorMask" class="control_mask" style="visibility: hidden" >
+        <div class="title"
+             style="z-index: 1001">
+            <button id="errorMaskBack" onclick="controlOBJ.errorBack_click(this)"
+                    style="background:none;text-align: left;">
+                <img style="margin-left: 10px;height: 70%;" src="img/back.png">
+            </button>
+            <div>
+                <span id="errorName" style="color:white;font-size: 20px;position: relative;top: 25%;bottom: 25%;">洗衣机</span>
+            </div>
+        </div>
+        <div id="singleErr" style="display: none">
+            <button  style="position: absolute;width: 30%;height:25%;top: 20%;left: 35%;background: url(img/error_code_bg.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                <p id="errorCode" style="margin: 0px;color: red;font-size: 1.8rem;">EH1</p>
+            </button>
+            <div id="errorDetails">
+                <p>故障原因：</p>
+                <p id="errorReason">烘干进风感温包异常</p>
+                <br></br>
+                <p>解除条件：</p>
+                <p id="errorSolve">按“启动/暂停”键重新开始或关闭电源后重新开机</p>
+                <p>若仍不能恢复，请联系售后解决</p>
+            </div>
+        </div>
+        <div id="mulErr" style="display: block;position: absolute;height: 80%;top: 10%;overflow: auto">
+            <ul id="mulErrUl" style="list-style: none">
+
+            </ul>
+        </div>
+        <!--<img src="img/power_off.png" style="position: absolute;width: 30%;top: 35%;left: 35%;">-->
+    </div>
+    <!-- 运行界面 -->
+    <div id="runMask" class="control_mask"style="visibility: hidden; background: none;margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;background-color:#f4f4f4;"
+         scroll="no" >
+        <div id="runUpBg" class="upPage">
+            <div class="title" style="z-index: 1001; height: 10%;">
+                <button id="runBackBtn" onclick="controlOBJ.runBack_click(this)"
+                        style="background:none;text-align: left;">
+                    <img style="margin-left: 10px;height: 70%;" src="img/back.png">
+                </button>
+                <div>
+                    <span id="runTitleMode" style="color:white;font-size: 20px;position: relative;top: 25%;bottom: 25%;">化纤</span>
+                </div>
+                <button id="runPowerBtn" onclick="controlOBJ.runPower_click(this)"
+                        style="background:none;text-align: right;float: right;">
+                    <img style="margin-right: 10px;height: 70%;" src="img/power.png">
+                </button>
+            </div>
+            <div class="middleDiv">
+                <p id="runLeftTime" class="timeShow" >00:50
+                </p>
+                <p id="midWSTimer2" class="small-text-time">剩余
+                </p>
+            </div>
+            <div style="position: absolute;height: 14%;width: 90%;left: 5%;bottom: 5%;">
+                <div class="progress" id="vader"></div>
+                <div style="position: relative;width: 100%;background-color: red;color: white;font-family: 黑体;">
+                    <span id="runPos1" style="position: absolute;float: left; left: 0%; width: 20%;text-align: left;">洗衣中</span>
+                    <span id="runPos2" style="position: absolute;float: left; left: 20%; width: 20%;text-align: right;">xxxx</span>
+                    <span id="runPos3" style="position: absolute;float: left; left: 40%; width: 20%;text-align: center;">漂洗</span>
+                    <span id="runPos4" style="position: absolute;float: left; left: 60%; width: 20%;text-align: left;">yyy</span>
+                    <span id="runPos5" style="position: absolute;float: left; left: 80%; width: 20%;text-align: right;">脱水</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <button id="runPause" onclick="controlOBJ.runPause_click(this)"
+                    style="position: absolute;width: 40%;height: 20%;top: 20%;left: 30%;background: url(img/open_bg.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                <p id="pauseTxt" style="margin: 0px;font-size: 1.5rem;">暂停</p>
+            </button>
+
+            <button id="adv_childLock" class="bottom-single-item" onclick="controlOBJ.childLock_click(this)" >
+                <img id="chlidLock_img" src="">
+                <p style="margin: 0px;font-size: 1rem;">童锁</p>
+            </button>
+
+
+
+        </div>
+    </div>
+
+    <!-- 运行中界面 -->
+
+    <!-- 主页面 -->
+
+    <div id="mainUpBg" class="upPage">
+        <div class="title">
+            <button id="mainBackBtn" onclick="controlOBJ.mainBack_click(this)"
+                    style="background:none;text-align: left;">
+                <img style="margin-left: 10px;height: 70%;" src="img/back.png">
+            </button>
+
+            <div id="txtEdit">
+                <span id="mainName" style="color:white;font-size: 22px;position: relative;top: 25%;bottom: 25%;">洗衣机</span>
+                <img src="img/edit.png" class="edit-img">
+            </div>
+
+            <button id="mainPowerBtn" onclick="controlOBJ.mainPower_click(this)"
+                    style="background:none;text-align: right;float: right;">
+                <img style="margin-right: 10px;height: 70%;" src="img/power.png">
+            </button>
+            <button id="center-save" onclick="controlOBJ.mainPower_click(this)"
+                    style="display: none;background:none;text-align: right;float: right;">
+                <span style="color: white;font-family: appleLight;font-size: 1rem;margin-right: 10px;height: 70%;">保存</span>
+            </button>
+        </div>
+
+        <div id="middle">
+            <div class="middleDiv">
+                <p id="midWSTimer" class="timeShow" >00:50
+                </p>
+                <p id="orderText" class="small-text-time" >
+                    预约
+                </p>
+            </div>
+
+
+            <div style="position: absolute;z-index: 1;left: 30%;width: 40%;height: 10%;top: 33%;margin: 0px;" id="container_temp">
+                <div class="carousel-mask"></div>
+                <section class="container_temp"><!--这里需要自定义样式显示多少个item-->
+                    <div id="carousel_temp" class="carousel" style="font-size: 2rem">
+                        <figure>标准洗</figure>
+                        <figure>混合</figure>
+                        <figure>牛仔</figure>
+                        <figure>大物</figure>
+                        <figure>内衣</figure>
+                        <figure>运动服</figure>
+                        <figure>筒清洁</figure>
+                        <figure>漂洗+脱水</figure>
+                        <figure>单脱水</figure>
+                        <figure>化纤</figure>
+                        <figure>衬衫</figure>
+                        <figure>快洗</figure>
+                        <figure>羊毛</figure>
+                        <figure>轻柔</figure>
+                    </div>
+                </section>
+            </div>
+
+
+            <div id="midStaHelp" style=": ;position: absolute;width: 100%;bottom: 0px;height: 50%;">
+                <div id="s1" style="position: relative;width: 25%;height: 100%;float: left;">
+                    <input id="scroller1" class="inputValue" style="display: none" />
+                    <p id="pop_washText1" style="font-family:appleUltralight;color:white;text-align: center;bottom: 0%;position: absolute;width: 100%;margin: 0px;"></p>
+                </div>
+                <div id="s2" style="position: relative;width: 25%;height: 100%;float: left;">
+                    <input id="scroller2" class="inputValue" style="display: none"/>
+                    <p id="pop_washText2" style="font-family:appleUltralight;color:white;text-align: center;bottom: 0%;position: absolute;width: 100%;margin: 0px;"></p>
+                </div>
+                <div id="s3" style="position: relative;width: 25%;height: 100%;float: left;">
+                    <input id="scroller3" class="inputValue" style="display: none"/>
+                    <p id="pop_washText3" style="font-family:appleUltralight;color:white;text-align: center;bottom: 0%;position: absolute;width: 100%;margin: 0px;"></p>
+                </div>
+                <div id="s4" style="position: relative;width: 25%;height: 100%;float: left;">
+                    <input id="scroller4" class="inputValue" style="display: none"/>
+                    <p id="pop_washText4" style="font-family:appleUltralight;color:white;text-align: center;bottom: 0%;position: absolute;width: 100%;margin: 0px;"></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+            <button id="fotStart" onclick="controlOBJ.mainStart_click(this)"
+                    style="position: absolute;width: 40%;height: 20%;top: 20%;left: 30%;background: url(img/open_bg.png) center center;background-repeat: no-repeat;background-size: 100%;">
+              <p id="mainStartBtn" style="margin: 0px;font-size: 1.5rem;">开始</p>
+            </button>
+
+            <button id="trigger-overlay" class="bottomTab">
+              <img src="img/adv.png">
+              <p style="margin: 0px;font-size: 1rem;">高级</p>
+            </button>
+            <button id="triggerSEC-overlay" style="position: absolute;width: 25%;height: 30%;left: 25%;bottom: 20px;background-size: 100%;background-color: #f4f4f4;">
+              <img src="img/mode.png">
+              <p style="margin: 0px;font-size: 1rem;">模式</p>
+            </button>
+            <button id="triggerThr-overlay" style="position: absolute;width: 25%;height: 30%;left: 50%;bottom: 20px;background-size: 100%;background-color: #f4f4f4;">
+              <img src="img/order.png">
+              <p style="margin: 0px;font-size: 1rem;">预约</p>
+            </button>
+            <button id="fotVoice" style="position: absolute;width: 25%;height: 30%;right: 0px;bottom: 20px;background-size: 100%;background-size: 100%;background-color: #f4f4f4;">
+              <img src="img/voice.png">
+              <p style="margin: 0px;font-size: 1rem;">语音</p>
+            </button>
+          </div>
+
+
+    <!--语音-->
+    <div id="pagevoice" style="display:none;">
+        <div id="page_voice_title"
+             style="z-index: 1002;    overflow-y: auto;
+         background-image: url('../../Public/images/ac/voiceheadbg.png');
+    overflow-x: hidden;position: absolute; margin: 0px; left: 0px; top: 0px; width: 100%; height:  3.0rem; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px);  background-size: 100% 100%;">
+            <div id="voiceTitle"
+                 style="width:100%; text-align:center;height:1.5rem;padding-top:.5rem;background:transparent;position:absolute;background-size:cover;z-index: 999;">
+                <div id="btnCloseVoice" style="float:left;width:4rem;margin-left:1rem;">
+                    <img src="../../Public/images/ac/voiceclose.png" style="height:1.5rem;float:left"/>
+                </div>
+                <div style="color:white;text-align:center;vertical-align:middle; line-height:1.2rem;font-size:1.2rem;display:inline;">
+                    <span style="display:inline-block;">语音助手 </span>
+                </div>
+                <div id="btnVoiceTips"
+                     style="float:right;margin-right: 0.5rem;width:4rem;color:white;text-align:center;vertical-align:middle; line-height:1.2rem;font-size:1.2rem;display:inline;">
+                    <span style="display:inline-block;">提示 </span>
+                </div>
+            </div>
+
+        </div>
+        <div id="page_voice_content"
+             style="z-index: 1001;background-image: url('../../Public/images/ac/voicebg.png'); overflow-y: auto;
+    overflow-x: hidden;position: absolute; margin: 0px; left: 0px; top: 0px; width: 100%; height: 100%; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px);  background-size: 100% 100%;">
+            <div id="convo" data-from="" style="display: none;position:absolute;margin-top: 3rem;width:100%;">
+                <ul id="chatmsg" ul class="chat-thread">
+                    <li>我能为你做什么?</li>
+                    <li>已开启开封当?</li>
+                    <li><span>听说这里很长i5会怎么样啊听说这里很长i5会怎么样啊</span></li>
+                    <li>Are we meeting today?</li>
+                    <li>yes, what time suits you?</li>
+                    <li>I was thinking after lunch, I have a meeting in the morning</li>
+                    <li>Are we meeting today?</li>
+                    <li>yes, what time suits you?</li>
+                    <li>I was thinking after lunch, I have a meeting in the morning</li>
+                    <li>Are we meeting today?</li>
+                    <li>yes, what time suits you?</li>
+                    <li>I was thinking after lunch, I have a meeting in the morning</li>
+                </ul> <!--占位-->
+                <div style="height: 4rem;width: 100%"></div>
+            </div>
+            <div id="convo_tips" data-from="" style="position:absolute;margin-top: 50%">
+                <ul class="chat-tips">
+                    <li>你可以这样说：</li>
+                    <li>开机/关机</li>
+                    <li>启动/暂停</li>
+                    <li>标准洗/衬衣/快洗/化纤/牛仔模式</li>
+                    </li>
+
+                </ul> <!--占位-->
+                <div style="height: 4rem;width: 100%"></div>
+            </div>
+
+        </div>
+        <div id="page_voice_bottom"
+             style="z-index: 1001;    overflow-y: auto;text-align: center;
+    overflow-x: hidden;position: absolute; margin: 0px; left: 0px; bottom: 0px; width: 100%; height:  4rem; right: auto;  border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px);  background-size: 100% 100%;">
+            <img id="startvoice" src="../../Public/images/ac/btnvoice.png" style="height:3.5rem"/>
+
+        </div>
+    </div>
+    <!--<div id="pagevoice" style="display: none;">-->
+        <!--<div id="page_voice_title"-->
+             <!--style="z-index: 1002;    overflow-y: auto;-->
+    <!--overflow-x: hidden;position: absolute; margin: 0px; left: 0px; top: 0px; width: 100%; height:  3.0rem; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px); background-color: rgb(0, 0, 0); background-size: 100% 100%;">-->
+            <!--<div id="voiceTitle"-->
+                 <!--style="width:100%; text-align:center;height:1.5rem;padding-top:.5rem;background:transparent;position:absolute;background-size:cover;z-index: 999;">-->
+                <!--<div id="btnCloseVoice" style="float:left;width:4rem;margin-left:1rem;">-->
+                    <!--<img src="img/voiceclose.png" style="height:1.5rem;float:left"/>-->
+                <!--</div>-->
+                <!--<div style="color:white;text-align:center;vertical-align:middle; line-height:1.2rem;font-size:1.2rem;display:inline;">-->
+                    <!--<span style="display:inline-block;">语音助手 </span>-->
+                <!--</div>-->
+                <!--<div id="btnVoiceTips" style="float:right;margin-right: 0.5rem;width:4rem;color:white;text-align:center;vertical-align:middle; line-height:1.2rem;font-size:1.2rem;display:inline;">-->
+                    <!--<span style="display:inline-block;">提示 </span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <!--<div id="page_voice_content"-->
+             <!--style="z-index: 1001;    overflow-y: auto;-->
+    <!--overflow-x: hidden;position: absolute; margin: 0px; left: 0px; top: 0px; width: 100%; height: 100%; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px); background-color: rgb(0, 0, 0); background-size: 100% 100%;">-->
+            <!--<div id="convo" data-from="" style="display: none;position:absolute;margin-top: 3rem;width:100%">-->
+                <!--<ul id="chatmsg" ul class="chat-thread">-->
+                    <!--<li>我能为你做什么?</li>-->
+                    <!--<li>已开启开封当?</li>-->
+                    <!--<li><span>听说这里很长i5会怎么样啊听说这里很长i5会怎么样啊</span></li>-->
+                    <!--<li>Are we meeting today?</li>-->
+                    <!--<li>yes, what time suits you?</li>-->
+                    <!--<li>I was thinking after lunch, I have a meeting in the morning</li>-->
+                    <!--<li>Are we meeting today?</li>-->
+                    <!--<li>yes, what time suits you?</li>-->
+                    <!--<li>I was thinking after lunch, I have a meeting in the morning</li>-->
+                    <!--<li>Are we meeting today?</li>-->
+                    <!--<li>yes, what time suits you?</li>-->
+                    <!--<li>I was thinking after lunch, I have a meeting in the morning</li>-->
+                <!--</ul> &lt;!&ndash;占位&ndash;&gt;-->
+                <!--<div style="height: 4rem;width: 100%"></div>-->
+            <!--</div>-->
+            <!--<div id="convo_tips" data-from="" style="position:absolute;margin-top: 50%;display: none">-->
+                <!--<ul class="chat-tips">-->
+                    <!--<li>你可以这样说：</li>-->
+                    <!--<li>开机/关机</li>-->
+                    <!--<li>启动/暂停</li>-->
+                    <!--<li>标准洗/衬衣/快洗/化纤/牛仔模式</li>-->
+                    <!--</li>-->
+
+                <!--</ul> &lt;!&ndash;占位&ndash;&gt;-->
+                <!--<div style="height: 4rem;width: 100%"></div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <!--<div id="page_voice_bottom"-->
+             <!--style="z-index: 1001;    overflow-y: auto;text-align: center;-->
+    <!--overflow-x: hidden;position: absolute; margin: 0px; left: 0px; bottom: 0px; width: 100%; height:  4rem; right: auto;  border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px); background-color: rgb(0, 0, 0); background-size: 100% 100%;">-->
+            <!--<img id="startvoice" src="img/btnvoice.png" style="height:4rem"/>-->
+
+        <!--</div>-->
+    <!--</div>-->
+
+
+
+    <!-- 用于弹出框 -->
+    <div id="mask"
+         style="display:none;position: absolute; margin: 0px; opacity: 0.600813; left: 0px; z-index: 1000;top: 0%; width: 100%; height: 100%; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px); background-color: rgb(0, 0, 0); background-size: 100% 100%;">
+        </div>
+
+    <!-- open/close -->
+    <div id="overlayAdv" class="overlay overlay-corner">
+        <div class="pop">
+            <div class="overlay-close"></div>
+
+            <table>
+                <tr>
+                    <td>
+                        <button id="adv_preWash" onclick="controlOBJ.preWash_click(this)" class="advBtn">
+                        </button>
+                        <p>预洗</p>
+                    </td>
+                    <td>
+                        <button id="adv_creaseRes" onclick="controlOBJ.creaseRes_click(this)" class="advBtn">
+                        </button>
+                        <p>防皱</p>
+                    </td>
+                    <td>
+                        <button id="adv_highWater" onclick="controlOBJ.highWater_click(this)" class="advBtn">
+                        </button>
+                        <p>高水位</p>
+                    </td>
+                    <td>
+                        <button id="adv_energySave" onclick="controlOBJ.energySave_click(this)" class="advBtn">
+                        </button>
+                        <p>ECO</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button id="adv_quiet" onclick="controlOBJ.quiet_click(this)" class="advBtn">
+                        </button>
+                        <p>静音</p>
+                    </td>
+
+                    <td>
+                        <button id="adv_noDrain" onclick="controlOBJ.noDrain_click(this)" class="advBtn">
+                        </button>
+                        <p>免排水</p>
+                    </td>
+                    <td>
+                        <button id="adv_nightWash" onclick="controlOBJ.nightWash_click(this)" class="advBtn">
+                        </button>
+                        <p>夜间洗</p>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <div id="overlayMode" class="overlaySEC overlaySEC-corner">
+        <div class="pop">
+            <div class="overlaySEC-close"></div>
+            <table >
+                 <tr>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_1_1" style="position: relative;height: 65%;width: 60%;background: url(img/mode_1_1_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>标准洗</p>
+                    </td>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_2_12"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_2_12_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>快洗</p>
+                    </td>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_3_2"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_3_2_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>混合</p>
+                    </td>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_4_3"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_4_3_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>牛仔</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_5_4"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_5_4_set.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>大物</p>
+
+                    </td>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_6_5"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_6_5_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>内衣</p>
+                    </td>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_7_6"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_7_6_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>运动服</p>
+                    </td>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_8_11"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_8_11_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>衬衫</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_9_10"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_9_10_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>化纤</p>
+                    </td>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_10_9"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_10_9_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>单脱水</p>
+                    </td>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_11_15"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_11_15_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>羊毛</p>
+                    </td>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_12_16"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_12_16_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>轻柔</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_13_8"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_13_8_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p style="font-size: 10px;">漂洗+脱水</p>
+                    </td>
+                    <td>
+                        <button onclick="controlOBJ.mode_click(this)" id="mode_14_7"  style="position: relative;height: 65%;width: 60%;background: url(img/mode_14_7_unset.png) center center;background-repeat: no-repeat;background-size: 100%;">
+                        </button>
+                        <p>筒清洁</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="overlayOrder" class="overlayThr overlayThr-corner">
+            <div class="pop">
+                <div class="overlayThr-close"></div>
+                <p id="orderTxt">预约洗衣耗时：</p>
+                <div id="timerPicker" style="bottom: 5%;position: absolute;">
+                    <div id="p1" class="warpper">
+                        <input id="scrollerOrder" class="inputValue" style="display: none;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!--<script src="../../Public/js/jquery-2.0.2.min.js"></script>-->
+    <script src="js/jquery-2.0.2.min.js"></script>
+    <script src="js/mobiscroll.min.js"></script>
+    <script src="js/fastclick.js"></script>
+    <script src="js/imgCache.js"></script>
+
+    <script src="js/pop.js"></script>
+    <script src="js/voice.js"></script>
+    <script src="js/mUIMethods.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/mControl.js"></script>
+    <script src="js/ProgressBarWars.js"></script>
+
+
+    <script>
+
+    </script>
+
+    </body>
+
+</html>

@@ -1,0 +1,182 @@
+/* Overlay style */
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 30%;
+	/*top: 55%;*/
+	bottom: 0px;
+	left: 0;
+	background: white;
+	z-index: 1001;
+}
+.overlaySEC {
+	position: fixed;
+	width: 100%;
+	height: 60%;
+	top: 40%;
+	left: 0;
+	background: white;
+	z-index: 1001;
+}
+.overlayThr {
+	position: fixed;
+	width: 100%;
+	height: 30%;
+	top: 70%;
+	left: 0;
+	background: white;
+	z-index: 1001;
+}
+/* Overlay closing cross */
+.overlay .overlay-close {
+	width: 100%;
+	height: 1rem;
+	top: 0.5rem;
+	position: absolute;
+	overflow: hidden;
+	border: none;
+	background:url(../img/downr.png) no-repeat center center;
+	text-indent: 200%;
+	color: transparent;
+	outline: none;
+	background-size:contain;
+	z-index: 1002;
+}
+.overlaySEC .overlaySEC-close {
+	width: 100%;
+	height: 1rem;
+	top: 0.5rem;
+	position: absolute;
+	overflow: hidden;
+	border: none;
+	background:url(../img/downr.png) no-repeat center center;
+	text-indent: 200%;
+	color: transparent;
+	outline: none;
+	background-size:contain;
+	z-index: 1002;
+}
+.overlayThr .overlayThr-close {
+	width: 100%;
+	height: 1rem;
+	top: 0.5rem;
+	position: absolute;
+	overflow: hidden;
+	border: none;
+	background:url(../img/downr.png) no-repeat center center;
+	text-indent: 200%;
+	color: transparent;
+	outline: none;
+	background-size:contain;
+	z-index: 1002;
+}
+/* Effects */
+.overlay-corner {
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transform: translateY(50px) translateX(00px);
+	transform: translateY(50px) translateX(0px);
+	-webkit-transition: opacity 0.2s, -webkit-transform 0.2s, visibility 0s 0.2s;
+	transition: opacity 0.2s, transform 0.2s, visibility 0s 0.2s;
+}
+.overlaySEC-corner {
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transform: translateY(50px) translateX(00px);
+	transform: translateY(50px) translateX(0px);
+	-webkit-transition: opacity 0.2s, -webkit-transform 0.2s, visibility 0s 0.2s;
+	transition: opacity 0.2s, transform 0.2s, visibility 0s 0.2s;
+}
+.overlayThr-corner {
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transform: translateY(50px) translateX(00px);
+	transform: translateY(50px) translateX(0px);
+	-webkit-transition: opacity 0.2s, -webkit-transform 0.2s, visibility 0s 0.2s;
+	transition: opacity 0.2s, transform 0.2s, visibility 0s 0.2s;
+}
+.overlay-corner.open { 
+	opacity: 1;
+	visibility: visible;
+	-webkit-transform: translateY(0%);
+	transform: translateY(0%);
+	-webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+	transition: opacity 0.5s, transform 0.5s;
+}
+.overlaySEC-corner.open { 
+	opacity: 1;
+	visibility: visible;
+	-webkit-transform: translateY(0%);
+	transform: translateY(0%);
+	-webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+	transition: opacity 0.5s, transform 0.5s;
+}
+.overlayThr-corner.open { 
+	opacity: 1;
+	visibility: visible;
+	-webkit-transform: translateY(0%);
+	transform: translateY(0%);
+	-webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+	transition: opacity 0.5s, transform 0.5s;
+}
+/* table style */
+.pop
+{
+	display:block;
+	text-align:center;
+	height:100%;
+}
+.pop table
+{
+	
+	width:100%;
+	height:95%;
+	color:#404657;
+	font-size:1rem;
+}
+
+.pop img
+{
+	height:4rem;
+}
+
+td {
+	position: relative;
+}
+
+td p {
+	position: absolute;
+	/*top: 43%;*/
+	margin: 0px;
+	width: 100%;
+	font-size: 0.9rem;
+	text-align: center;
+	word-wrap: break-word; 
+	word-break: normal; 
+}
+
+@media screen and (max-height: 30.5em) {
+	.overlay nav {
+		height: 70%;
+		font-size: 34px;
+	}
+	.overlay ul li {
+		min-height: 34px;
+	}
+	@media screen and (max-height: 30.5em) {
+	.overlaySEC nav {
+		height: 70%;
+		font-size: 34px;
+	}
+	.overlaySEC ul li {
+		min-height: 34px;
+	}
+	.overlayThr nav {
+		height: 70%;
+		font-size: 34px;
+	}
+	.overlayThr ul li {
+		min-height: 34px;
+	}
+}
+}

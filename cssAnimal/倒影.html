@@ -1,0 +1,106 @@
+<div class="container">
+    <div><figure></figure><figure></figure><figure></figure><figure></figure></div>
+    <div><figure></figure><figure></figure><figure></figure><figure></figure></div>
+    <div><figure></figure><figure></figure><figure></figure><figure></figure></div>
+    <div><figure></figure><figure></figure><figure></figure><figure></figure></div>
+    <div><figure></figure><figure></figure><figure></figure><figure></figure></div>
+    <div><figure></figure><figure></figure><figure></figure><figure></figure></div>
+</div>
+<style>
+    *{
+        transform-style:preserve-3d;
+    }
+    body{
+        background:black;
+    }
+    .container{
+        width:200px;
+        height:200px;
+        position:relative;
+        margin:200px auto;
+        transform-style:preserve-3d;
+    }
+    .container div{
+        width:200px;
+        height:200px;
+        position:absolute;
+    }
+    .container div:nth-child(1){
+        transform:translateZ(200px);
+    }
+    .container div:nth-child(2){
+        transform:rotateY(-90deg);
+        transform-origin: 0 0;
+    }
+    .container div:nth-child(3){
+        transform:rotateY(90deg);
+        transform-origin: 100% 0;
+    }
+    .container div:nth-child(4){
+        transform:rotateX(90deg);
+        transform-origin:0 0;
+    }
+    .container div:nth-child(5){
+        transform:rotateX(-90deg);
+        transform-origin:0 100%;
+    }
+    @keyframes rotate{
+        from{
+            transform: rotate3d(1,1,1,0);
+        }
+        to{
+            transform: rotate3d(1,1,1,360deg);
+        }
+    }
+    figure{
+        width:100%;
+        height:100%;
+        margin:0;
+        position:absolute;
+        background:url(http://img.duoziwang.com/2016/09/02/15483442009.jpg) no-repeat;
+        background-size:cover;
+    }
+    figure:nth-child(1){
+        -webkit-box-reflect:above;
+    }
+    figure:nth-child(2){
+        -webkit-box-reflect:below;
+    }
+    figure:nth-child(3){
+        -webkit-box-reflect:left;
+    }
+    figure:nth-child(4){
+        -webkit-box-reflect:right;
+    }
+    body{
+        animation: rotate 5s linear infinite;
+        transform-orgin:50% 200px;
+    }
+    html{
+        overflow:hidden;
+    }
+</style>
+<script>
+    var div = document.querySelector('div');
+    var flag = false;// 是否启动拖拽
+    document.addEventListener('mousedown', function() {
+        flag = true;
+        document.body.style.setProperty('animation-play-state', 'paused');
+    }, false);
+    document.addEventListener('mouseup', function() {
+        flag = false;
+        document.body.style.setProperty('animation-play-state', 'running');
+    }, false);
+    document.addEventListener('mousemove', function move(e) {
+        if (!flag) {
+            move.lastX = e.x;
+            move.lastY = e.y;
+            return;
+        }
+        var transform = getComputedStyle(div).getPropertyValue('transform');
+        transform == 'none' && (transform = '');
+        div.style.setProperty('transform', transform + 'rotateX(' + (move.lastY - e.y) / 5 + 'deg) rotateY(' + (e.x - move.lastX) / 5 + 'deg)');
+        move.lastX = e.x;
+        move.lastY = e.y;
+    }, false);
+</script>

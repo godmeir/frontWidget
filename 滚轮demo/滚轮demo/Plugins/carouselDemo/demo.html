@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%;overflow:hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title>Title</title>
+    <script src="../../Public/js/jquery-2.0.2.min.js"></script>
+    <script src="../../Public/js/carousel-1.0.js"></script>
+    <link rel="stylesheet" href="../../Public/css/carousel-1.0.css">
+    <style>
+        html * {
+            outline: 0;
+            -webkit-text-size-adjust: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        .container_fan {
+            width: 20%; /*这里控制显示多少个item*/
+            height: 140px;
+            position: relative;
+            margin: 50px auto 40px;
+            -webkit-perspective: 1100px;
+            -moz-perspective: 1100px;
+            -o-perspective: 1100px;
+            perspective: 1100px;
+        }
+
+        .container_temp{
+            width: 28%; /*这里控制显示多少个item*/
+            height: 140px;
+            position: relative;
+            margin: 50px auto 40px;
+            -webkit-perspective: 1100px;
+            -moz-perspective: 1100px;
+            -o-perspective: 1100px;
+            perspective: 1100px;
+        }
+
+        @font-face {
+            font-family: 'appleUltralight';
+            src: url('../../font/SF-UI-Display-Ultralight.otf');
+        }
+
+        @font-face {
+            font-family: 'appleLight';
+            src: url('../../font/SF-UI-Display-Light.otf');
+        }
+    </style>
+
+</head>
+<body  style="margin:0;padding:0;width:100%;height:100%;background-color:#f4f4f4;overflow: hidden;"
+       scroll="no">
+<div style="width: 100%" id="container_fan">
+    <div class="carousel-mask"></div>
+    <section class="container_fan"><!--这里需要自定义样式显示多少个item-->
+        <div id="carousel_fan" class="carousel">
+            <figure>
+                <img src="../../Public/images/ac/n_auto.png" data-blue="../../Public/images/ac/c_auto.png"
+                     data-orange="../../Public/images/ac/h_auto.png" style="height:2.5rem"/>
+            </figure>
+            <figure>
+                <img src="../../Public/images/ac/n_low.png" data-blue="../../Public/images/ac/c_low.png"
+                     data-orange="../../Public/images/ac/h_low.png" style="height:2.5rem"/>
+            </figure>
+            <figure>
+                <img src="../../Public/images/ac/n_medium_low.png" data-blue="../../Public/images/ac/c_medium_low.png"
+                     data-orange="../../Public/images/ac/h_medium_low.png" style="height:2.5rem"/>
+            </figure>
+            <figure>
+                <img src="../../Public/images/ac/n_medium.png" data-blue="../../Public/images/ac/c_medium.png"
+                     data-orange="../../Public/images/ac/h_medium.png" style="height:2.5rem"/>
+            </figure>
+            <figure>
+                <img src="../../Public/images/ac/n_medium_high.png" data-blue="../../Public/images/ac/c_medium_high.png"
+                     data-orange="../../Public/images/ac/h_medium_high.png" style="height:2.5rem"/>
+            </figure>
+            <figure>
+                <img src="../../Public/images/ac/n_high.png" data-blue="../../Public/images/ac/c_high.png"
+                     data-orange="../../Public/images/ac/h_high.png" style="height:2.5rem"/>
+            </figure>
+            <figure>
+                <img src="../../Public/images/ac/n_turbo.png" data-blue="../../Public/images/ac/c_turbo.png"
+                     data-orange="../../Public/images/ac/h_turbo.png" style="height:2.5rem"/>
+            </figure>
+            <figure>
+                <img src="../../Public/images/ac/n_quiet.png" data-blue="../../Public/images/ac/c_quiet.png"
+                     data-orange="../../Public/images/ac/h_quiet.png" style="height:2.5rem"/>
+            </figure>
+        </div>
+    </section>
+</div>
+
+<div style="width: 100%" id="container_temp">
+    <div class="carousel-mask"></div>
+    <section class="container_temp"><!--这里需要自定义样式显示多少个item-->
+        <div id="carousel_temp" class="carousel">
+            <figure>16</figure>
+            <figure>16<span style="font-size: 1rem">.5</span></figure>
+            <figure>17</figure>
+            <figure>17<span style="font-size: 1rem">.5</span></figure>
+            <figure>18</figure>
+            <figure>18<span style="font-size: 1rem">.5</span></figure>
+            <figure>19</figure>
+            <figure>19<span style="font-size: 1.5rem">.5</span></figure>
+            <figure>20</figure>
+            <figure>20<span style="font-size: 1rem">.5</span></figure>
+            <figure>21</figure>
+            <figure>21<span style="font-size: 1rem">.5</span></figure>
+            <figure>22</figure>
+            <figure>22<span style="font-size: 1rem">.5</span></figure>
+            <figure>23</figure>
+            <figure>23<span style="font-size: 1rem">.5</span></figure>
+            <figure>24</figure>
+            <figure>24<span style="font-size: 1rem">.5</span></figure>
+            <figure>25</figure>
+            <figure>25<span style="font-size: 1rem">.5</span></figure>
+            <figure>26</figure>
+            <figure>26<span style="font-size: 1rem">.5</span></figure>
+            <figure>27</figure>
+            <figure>27<span style="font-size: 1rem">.5</span></figure>
+            <figure>28</figure>
+            <figure>28<span style="font-size: 1rem">.5</span></figure>
+            <figure>29</figure>
+            <figure>29<span style="font-size: 1rem">.5</span></figure>
+            <figure>30</figure>
+        </div>
+    </section>
+</div>
+</body>
+</html>
+
+<script>
+    var tempDemo = new rollWidget({
+        containerID: 'container_temp',//容器ID
+        renderTo: 'carousel_temp',//渲染到
+        scale: 0.35,//中间值和两边的缩放比
+        fontColor: "#444659",//字体初始颜色
+        focusColor: "#095ab5",//字体点击后的颜色
+        onChange: function (val) {
+            //返回index 0开始
+            console.log("onChange:" + val);
+        }
+    });
+    tempDemo.setValue(3);//设置index
+
+
+    var fanDemo = new rollWidget({
+        containerID: 'container_fan',//容器ID
+        renderTo: 'carousel_fan',//渲染到
+        scale: 0.8,//中间值和两边的缩放比
+        fontColor: "#444659",//字体初始颜色
+        focusColor: "#095ab5",//字体点击后的颜色
+        onChange: function (val) {
+            //返回index 0开始
+            console.log("onChange:" + val);
+        }
+    });
+    fanDemo.data("orange");//设置点击的时候是橙色
+
+</script>
