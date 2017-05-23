@@ -1,0 +1,37 @@
+var lang={
+	//模式
+	mode_cool:"制冷",
+	mode_auto:"自动",
+	mode_heat:"制热",
+	mode_fan:"送风",
+	mode_dry:"抽湿",
+	mode_energy:"节能",	
+	//风挡
+	fan_auto:"自动",
+	fan_low:"低",
+	fan_medium_low:'中低',
+	fan_medium:'中',
+	fan_medium_high:'中高',
+	fan_high:'高',
+	fan_turbo:'超强',
+	fan_quiet:'静音',
+	//高级
+	advance_air:"换气",
+	advance_dry:"干燥",
+	advance_health:"健康",
+	advance_light:"灯光",
+	advance_se:"节能",
+	advance_updown:"上下扫风",
+	advance_leftright:"左右扫风",
+	advance_timer:"预约",
+	advance_8heat:"8℃制热",
+	advance_sleep:"睡眠",
+	//标题编辑按钮
+	title_editor:"编辑",
+		//底部按钮
+	btnFunc:"功能",
+	btnVoice:"语音",
+	//save按钮
+	btnSave:"保存"
+	
+}
