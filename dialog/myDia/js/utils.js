@@ -1,53 +1,7 @@
-   //横滚控件
-   function Carousel ( el ) {
-      this.element = el;
-      this.rotation = 0;
-      this.panelCount = 0;
-      this.totalPanelCount = this.element.children.length;
-      this.theta = 0;
-      this.isHorizontal = true;
-	  this.panelWith=0;
-	  //温度使用
-	  this.scaleVal=1;//温度使用到的缩放
-	  this.SelectVal=0;
-    }
-	
-	Carousel.prototype.modify = function(isReset) {
-      var panel, angle, i;
-       this.panelWith= this.panelSize = this.element[ this.isHorizontal ? 'offsetWidth' : 'offsetHeight' ];
-      this.rotateFn = this.isHorizontal ? 'rotateY' : 'rotateX';
-      this.theta = 360 / this.panelCount;
-	  g_theta=this.theta;
-      g_radius= this.radius = Math.round( ( this.panelSize / 2) / Math.tan( Math.PI / this.panelCount ) );
-      for ( i = 0; i < this.panelCount; i++ ) {
-        panel = this.element.children[i];
-        angle = this.theta * i;
-        panel.style.opacity = 1;
-        panel.style[ transformProp ] = this.rotateFn + '(' + angle + 'deg) translateZ(' + this.radius + 'px) scaleX('+this.scaleVal+') scaleY('+this.scaleVal+')';
-      }
-	  //隐藏不用的控件
-      for (  ; i < this.totalPanelCount; i++ ) {
-        panel = this.element.children[i];
-        panel.style.opacity = 0;
-        panel.style[ transformProp ] = 'none';
-      }
-	  if(!isReset){
-			this.rotation = Math.round( this.rotation / this.theta ) * this.theta;
-	  }else{
-		   this.rotation =(this.SelectVal-16)*this.theta*-1;
-	  }
-      this.transform();
-    };
-
-    Carousel.prototype.transform = function() {
-      this.element.style[ transformProp ] = 'translateZ(-' + this.radius + 'px) ' + this.rotateFn + '(' + this.rotation + 'deg)';
-    };
-
-
 
 // ======================= DOM Utility Functions from PastryKit =============================== //
 
-// Sure, we could use jQuery or XUI for these, 
+// Sure, we could use jQuery or XUI for these,
 // but these are concise and will work with plain vanilla JS
 
 Element.prototype.hasClassName = function (a) {
@@ -115,16 +69,16 @@ DDD.RangeDisplay = function ( range ) {
   this.range = range;
   this.output = document.createElement('span');
   this.output.addClassName('range-display');
-  
-  
+
+
   this.units = this.range.getAttribute('data-units') || '';
-  
+
   // this.output.textContent = this.range.value;
   this.change();
-  
-  
+
+
   this.range.parentNode.appendChild( this.output );
-  
+
   this.range.addEventListener( 'change', this, false);
 };
 
@@ -142,7 +96,7 @@ DDD.RangeDisplay.prototype.change = function( event ) {
 
 DDD.ProxyRange = function ( input ) {
   this.input = input;
-  
+
   this.slider = document.createElement('div');
   this.slider.addClassName('proxy-range');
 
@@ -153,24 +107,24 @@ DDD.ProxyRange = function ( input ) {
 
   this.width = parseInt( getComputedStyle( this.input ).width, 10);
   this.slider.style.width = this.width + 'px';
-  
+
   this.min = parseInt( this.input.getAttribute('min') || 0, 10 );
   this.max = parseInt( this.input.getAttribute('max') || 100, 10 );
-  
+
   this.normalizeRatio = ( this.max - this.min ) / ( this.width - DDD.ProxyRange.lineCap * 2 );
-  
+
   this.value = this.input.value;
 
   this.resetHandlePosition();
-  
+
   this.slider.addEventListener( DDD.CursorStartEvent, this, false );
   this.handle.addEventListener( DDD.CursorStartEvent, this, false );
-  
+
   this.input.parentNode.insertBefore( this.slider, this.input.nextSibling );
   this.input.style.display = 'none';
-  
+
   this.x = this.slider.offsetLeft;
-  
+
 };
 
 // constant for position the handle inside the slider
@@ -182,11 +136,11 @@ DDD.ProxyRange.prototype.moveHandle = function( event ) {
   var cursor = DDD.isTangible ? event.touches[0] : event,
       x = cursor.pageX - this.x;
   x = Math.max( DDD.ProxyRange.lineCap, Math.min( this.width - DDD.ProxyRange.lineCap, x ) );
-  
+
   this.positionHandle( x );
-  
+
   this.value = Math.round( ( x - DDD.ProxyRange.lineCap ) * this.normalizeRatio + this.min );
-  
+
   if ( this.input.value != this.value ) {
     this.input.value = this.value;
 
@@ -210,26 +164,26 @@ DDD.ProxyRange.prototype.resetHandlePosition = function() {
 
 DDD.ProxyRange.prototype[ DDD.CursorStartEvent ] = function( event ) {
   this.slider.addClassName('highlighted');
-  
+
   this.moveHandle( event );
-  
+
   window.addEventListener( DDD.CursorMoveEvent, this, false );
   window.addEventListener( DDD.CursorEndEvent, this, false );
-  
+
   event.preventDefault();
 };
 
 DDD.ProxyRange.prototype[ DDD.CursorMoveEvent ] = function( event ) {
-  
+
   this.moveHandle( event );
-  
+
   event.preventDefault();
 };
 
 DDD.ProxyRange.prototype[ DDD.CursorEndEvent ] = function( event ) {
-  
+
   this.slider.removeClassName('highlighted');
-  
+
   window.removeEventListener( DDD.CursorMoveEvent, this, false );
   window.removeEventListener( DDD.CursorEndEvent, this, false );
 };
@@ -250,18 +204,18 @@ DDD.translate = Modernizr.csstransforms3d ?
 
 
 DDD.init = function() {
-  
+
   var ranges = document.querySelectorAll('input[type="range"]'),
       rangesLen = ranges.length,
       i;
-  
+
   if ( rangesLen ) {
-    
+
      // create range output display
     for ( i=0; i < rangesLen; i++ ) {
       new DDD.RangeDisplay( ranges[i] );
     }
-    
+
     // check browser support for range input
     // this has been hacked together from Modernizr range input test
     // -> Thanks Faruk Ates, Paul Irish, and Mike Taylor http://modernizr.com
@@ -273,17 +227,17 @@ DDD.init = function() {
       }
       return isSupported;
     })();
-    
+
     // create range inputs for iOS
     if ( !isRangeSupported ) {
       for ( i=0; i < rangesLen; i++ ) {
         new DDD.ProxyRange( ranges[i] );
       }
     }
-    
+
   }
-  
-  
+
+
 };
 
 

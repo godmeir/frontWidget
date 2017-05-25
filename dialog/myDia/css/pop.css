@@ -2,8 +2,8 @@
 .overlay {
 	position: fixed;
 	width: 90%;
-	height: 60%;
-	top: 20%;
+	height: 70%;
+	top: 10%;
 	left: 5%;
 	background: white;
 	border-radius: 0.5rem;
@@ -25,13 +25,27 @@
 	position: absolute;
 	overflow: hidden;
 	border: none;
-	background:url(../img/downr.png) no-repeat center center;
-	text-indent: 200%;
-	color: transparent;
+	/*background:url(../img/downr.png) no-repeat center center;*/
+	/*text-indent: 200%;*/
+	/*color: transparent;*/
 	outline: none;
 	z-index: 100;
 	background-size:contain;
+	bottom: 0%;
 	
+}
+
+#dl-confirm{
+	width: 80%;
+	left: 10%;
+	height: 3.6rem;
+	line-height: 3.6rem;
+	bottom: 3%;
+	color: #00AEFF;
+	font-size: 1.2rem;
+	border-radius: 5px;
+	border: 1px solid rgba(10,10,10,0.2);
+
 }
 
 /* table style */
@@ -84,3 +98,16 @@ height:100%;
 		min-height: 34px;
 	}
 }
+
+/*register*/
+#dl-mask{display:none;position: absolute; margin: 0px; opacity: 0.600813; left: 0px; top: 0px; width: 100%; height: 100%; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px); background-color: rgb(0, 0, 0); background-size: 100% 100%;}
+.dl-title{position: relative;width: 100%;text-align: center;line-height: 3.2rem;height: 3.2rem;font-size: 1.6rem;font-weight: 500}
+.dl-title label{display: inline-block;width: 100%}
+.dl-ul{position: relative;background-color: #fff;margin-top: 1rem;border-top: 1px solid #dcdcdc;}
+.dl-ul li{line-height: 4.5rem;border-bottom: 1px solid #dcdcdc;padding: 0 1.5rem;color: #333;font-size: 14px;position: relative;}
+.dl-ul li input{display: inline-block;border: none;color: #00AEFF;font-size: 18px;text-align: right}
+.dl-ul li span:nth-of-type(1){display: inline-block;position: absolute;text-align: left;width:30%;left: 10%;white-space: nowrap;margin-right: 0.5rem;}
+
+
+
+
