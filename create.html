@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>yupeng's document </title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<!--<script type="text/javascript">-->
+
+    <!--var obj = {-->
+
+        <!--a:function(){-->
+            <!--console.log(100)-->
+        <!--},-->
+        <!--b:function(){-->
+            <!--console.log(200)-->
+        <!--},-->
+        <!--c:function(){-->
+            <!--console.log(300)-->
+        <!--}-->
+
+    <!--}-->
+
+    <!--var newObj = {};-->
+
+    <!--newObj = Object.create(obj,{-->
+        <!--t1:{-->
+            <!--value:'yupeng',-->
+            <!--writable:true-->
+        <!--},-->
+        <!--bar: {-->
+            <!--configurable: false,-->
+            <!--get: function() { return bar; },-->
+            <!--set: function(value) { bar=value }-->
+        <!--}-->
+
+    <!--})-->
+
+    <!--console.log(newObj.a());-->
+    <!--console.log(newObj.t1);-->
+    <!--newObj.t1='yupeng1'-->
+    <!--console.log(newObj.t1);-->
+    <!--newObj.bar=201;-->
+    <!--console.log(newObj.bar)-->
+
+    <!--function Parent() { }-->
+    <!--var parent = new Parent();-->
+    <!--var child = Object.create(parent, {-->
+        <!--dataDescriptor: {-->
+            <!--value: "This property uses this string as its value.",-->
+            <!--writable: true,-->
+            <!--enumerable: true-->
+        <!--},-->
+        <!--accessorDescriptor: {-->
+            <!--get: function () { return "I am returning: " + accessorDescriptor; },-->
+            <!--set: function (val) { accessorDescriptor = val; },-->
+            <!--configurable: true-->
+        <!--}-->
+    <!--});-->
+
+    <!--child.accessorDescriptor = 'YUPENG';-->
+    <!--console.log(child.accessorDescriptor);-->
+
+
+
+    <!--var Car2 = function(){-->
+        <!--this.name = 'aaaaaa'-->
+    <!--} //this is an empty object, like {}-->
+    <!--Car2.prototype = {-->
+        <!--getInfo: function() {-->
+            <!--return 'A ' + this.color + ' ' + this.desc + '.';-->
+        <!--}-->
+    <!--};-->
+
+    <!--var newCar = new Car2();-->
+
+    <!--var car2 = Object.create(newCar, {-->
+        <!--//value properties-->
+        <!--color:   { writable: true,  configurable:true, value: 'red' },-->
+        <!--//concrete desc value-->
+        <!--rawDesc: { writable: true, configurable:true, value: 'Porsche boxter' },-->
+        <!--// data properties (assigned using getters and setters)-->
+        <!--desc: {-->
+            <!--configurable:true,-->
+            <!--get: function ()      { return this.rawDesc.toUpperCase();  },-->
+            <!--set: function (value) { this.rawDesc = value.toLowerCase(); }-->
+        <!--}-->
+    <!--});-->
+    <!--car2.color = 'blue';-->
+    <!--console.log(car2.getInfo());-->
+    <!--car2.desc = "XXXXXXXX";-->
+    <!--console.log(car2.getInfo());-->
+    <!--console.log(car2.name);-->
+
+
+
+<!--</script>-->
+<script>
+    var pt = {
+        ne: 1,
+        say : function(){
+            console.log('saying!');
+        }
+    }
+
+    var o = Object.create(pt);
+
+    console.log('say' in o); // true
+    console.log(o.hasOwnProperty('say')); // false
+</script>
+
+</body>
+</html>
