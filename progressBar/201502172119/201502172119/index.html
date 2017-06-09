@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+
+	<div id="indicatorContainer"></div>
+
+    <script src="../../../public/js/jquery-2.0.2.min.js"></script>
+    <script src="js/radialIndicator.min.js"></script>
+<script>
+//    $('#indicatorContainer5').radialIndicator({
+//        showPercentage : false // option
+//    });
+//
+//    //or using native javascript
+//    var progObj = radialIndicator('#indicatorContainer5' , {
+//        showPercentage : false // option
+//    });
+
+    //jquery
+//    $('#indicatorContainer').radialIndicator();
+//    var radialObj = $('#indicatorContainer').data('radialIndicator');
+
+    //Vanilla JS
+    var radialObj = radialIndicator('#indicatorContainer');
+
+    //getter
+    var interpolate = radialObj.option('interpolate');
+
+    //setter
+    radialObj.option('interpolate',false);
+    radialObj.option('radius',80);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>基于zepto的移动端/H5触摸拖动加载更多数据</title>
+<style>
+*{margin:0;padding:0;outline:0;-webkit-box-sizing:border-box;box-sizing:border-box;}
+body{background:#f1f1f1;color:#666;}
+li{list-style-type:none;}
+a{text-decoration:none;color:#666;}
+
+
+
+.od-tabsNav{overflow:hidden;padding:10px 15px;position:fixed;left:0;top:0;width:100%;z-index:2;background:#666;}
+.od-tabsNav li{float:left;width:50%;text-align:center;height:30px;line-height:30px;font-size:14px;background:#f1f1f1;}
+.od-tabsNav li.cur{background:#f00;color:#fff;}
+.od-tabs-con{display:none;background:#fff;font-size:12px;}
+.od-tabs-con li{height:40px;line-height:40px;border-bottom:1px solid #e9e9e9;padding-left:10px;}
+
+#scroll-wrapper{position:absolute;z-index:1;top:45px;bottom:48px;width:100%;overflow:auto;}
+#scroll-scroller{position:absolute;z-index:1;-webkit-tap-highlight-color:rgba(0,0,0,0);width:100%;}
+#pullDown, #pullUp{height:40px;line-height:40px;font-size:12px;color:#888;text-align:center;}
+#pullDown .pullDownIcon, #pullUp .pullUpIcon{position:absolute;margin:8px 0 0 30%;width:24px;height:24px;background:url(images/arrow.png) 0 0 no-repeat;
+	-webkit-background-size:auto 100%;
+	background-size:auto 100%;
+	-webkit-transition-property:-webkit-transform;
+	-webkit-transition-duration:250ms;
+}
+#pullDown .pullDownIcon{-webkit-transform:rotate(0deg) translateZ(0);}
+#pullUp .pullUpIcon{-webkit-transform:rotate(-180deg) translateZ(0);}
+#pullDown.flip .pullDownIcon{-webkit-transform:rotate(-180deg) translateZ(0);}
+#pullUp.flip .pullUpIcon {-webkit-transform:rotate(0deg) translateZ(0);}
+#pullDown.scroll-loading .pullDownIcon, #pullUp.scroll-loading .pullUpIcon{background-image: url(images/loader.png);background-size:100% auto;background-position:0 100%;
+	-webkit-transform:rotate(0deg) translateZ(0);
+	-webkit-transition-duration:0ms;
+	-webkit-animation-name:scroll-loading;
+	-webkit-animation-duration:2s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-timing-function:linear;
+}
+@-webkit-keyframes scroll-loading {
+	from{-webkit-transform:rotate(0deg) translateZ(0);}
+	to{-webkit-transform:rotate(360deg) translateZ(0);}
+}
+</style>
+</head>
+<body>
+<ul class="od-tabsNav">
+	<li class="cur">公告</li>
+	<li>消息</li>
+</ul>
+<div id="scroll-wrapper">
+	<div id="scroll-scroller">
+		<div class="pullDown" id="pullDown">
+			<div class="pullDownIcon"></div><div class="pullDownLabel">下拉刷新</div>
+		</div>
+		<div class="ne_conter ne_wrapper" id="ul-hh" style="display:block;">
+			<ul>
+				<li class="ne_busy">
+					<div class="ne_place">
+						<p class="ne_placep1">格力智能洗衣机</p>
+						<p class="ne_placep3">剩余洗衣时间：19:06</p>
+					</div>
+					<div class="ne_distance">进行中</div>
+
+					<div class="ne_active">
+						<div class="ne_active_wrap">
+							<div class="ne_active_left_juan">7天酒店团结湖店</div>
+							<div class="ne_active_right"></div>
+						</div>
+						<div class="ne_active_wrap">
+							<div class="ne_active_left_zhe">待选择模式</div>
+							<div class="ne_active_right"></div>
+						</div>
+					</div>
+
+					<div class="ne_active" style="height: 4rem">
+						<div class="ne_active_wrap" style="height: 3rem">
+							<div class="ne_active_left_juan" style="line-height: 3rem;font-size: 1.5rem;color: #00AEFF";></div>
+							<div class="ne_active_right" style="line-height: 3rem;font-size: 1.5rem;color: #00AEFF">强制关机</div>
+						</div>
+					</div>
+
+				</li>
+				<li class="ne_busy">
+					<div class="ne_place">
+						<p class="ne_placep1">格力智能洗衣机</p>
+						<p class="ne_placep3">剩余洗衣时间：19:06</p>
+					</div>
+					<div class="ne_distance">进行中</div>
+
+					<div class="ne_active">
+						<div class="ne_active_wrap">
+							<div class="ne_active_left_juan">7天酒店团结湖店</div>
+							<div class="ne_active_right"></div>
+						</div>
+						<div class="ne_active_wrap">
+							<div class="ne_active_left_zhe">待选择模式</div>
+							<div class="ne_active_right"></div>
+						</div>
+					</div>
+
+					<div class="ne_active" style="height: 4rem">
+						<div class="ne_active_wrap" style="height: 3rem">
+							<div class="ne_active_left_juan" style="line-height: 3rem;font-size: 1.5rem;color: #00AEFF";></div>
+							<div class="ne_active_right" style="line-height: 3rem;font-size: 1.5rem;color: #00AEFF">强制关机</div>
+						</div>
+					</div>
+
+				</li>
+			</ul>
+		</div>
+		<div class="od-tabs-con">
+			<ul></ul>
+		</div>
+		<div class="pullUp" id="pullUp">
+			<div class="pullUpIcon"></div><div class="pullUpLabel">上拉加载更多</div>
+		</div>
+	</div>			
+</div>
+<script src="js/zepto.min.js"></script>
+<script src="js/iscroll.js"></script>
+<script src="../../public/js/des.js"></script>
+<script src="../../public/js/base.js"></script>
+<link rel="stylesheet" type="text/css" href="../../public/css/gree_pub.css">
+
+<script>
+    var pageNoticeIndex = 1,    //当前页
+        pageMsgIndex = 1,
+        pageSize = 5,   //每页数量
+        load1More = false,   //判断是否全部加载完毕
+        load2More = false;
+
+    var dataurl = getDataUrl();
+    var payurl = getpayUrl();
+
+    //tab切换
+    $('.od-tabsNav li').on('click',function(){
+        var $this = $(this),
+            curIndex = $this.index();
+        $this.addClass('cur').siblings('li').removeClass('cur');
+        $('.tabs_con').eq(curIndex).css("display","block").siblings('.tabs_con').css("display","none");
+        myScroll.scrollTo(0, 0);   //确保每次切换时scroll回到初始起点
+        myScroll.refresh();        //每次切换时都要调用界面更新方法
+        if(curIndex == 0){
+            if(!load1More){
+                $("#pullUp").html('<div class="pullUpIcon"></div><div class="pullUpLabel">上拉加载更多</div>');
+            }else{
+                $("#pullUp").html("已无更多数据");
+            }
+        }else if(curIndex == 1){
+            if(!load2More){
+                $("#pullUp").html('<div class="pullUpIcon"></div><div class="pullUpLabel">上拉加载更多</div>');
+            }else{
+                $("#pullUp").html("已无更多数据");
+            }
+        }
+    });
+
+
+    /**
+     * @description 获取订单数据，不同的订单的GET请求orderType不同
+     * @param pageNumber
+     * @param isComplete 是否已经完成了，为了区分是否是已经完成的订单（0：正在进行中的订单，1：已经完成的订单）
+     */
+
+//    order_getData(1,0);
+
+    function order_getData(pageNumber,isComplete){
+        var orderType = "";
+        if(isComplete == 0){
+            orderType = "01";
+        }else if(isComplete == 1) {
+            orderType = "02";
+        }
+
+        var TokenId = localStorage.getItem("tokenId");
+
+        $.ajax({
+            type:"GET",
+            url:''+dataurl+'/api/order/getUserOrderList.api',
+            data:{"pageNumber":pageNumber,"orderType":"","tokenId":TokenId,"ssid":getTime()},
+            dataType:"jsonp",
+            jsonp:"outAccess",
+            success:function(data){
+
+                if(!data){
+                    load=false;
+                    if(pageNumber==1){
+                        setTimeout(function(){
+                            $(".ne_nodata").css("display","block");						//页面提示无数据
+                        },1000);
+
+                    }
+                }
+
+                console.log(data);
+                if(data.retCode == 10005){
+                    $('#wrapper').attr('getpage','getNone');
+                    //数据不存在
+                }
+                if(data.retCode == 10017){
+                    //重新登录
+//                    window.location.href = 'login.html';
+                }
+                if(data.retCode == 00000){
+                    var dataLength = data.data.length;
+                    var myOrder = '';
+                    var myOrderNum = '';
+                    var orderStatus = '';
+                    var tapOn = '';
+                    var RightArrow = '';
+                    var deviceInfo = '';
+                    for(var i=0;i<dataLength;i++){
+                        if(i<9 && pageNumber==1){myOrderNum = 0+''+(i+1);}
+                        else{myOrderNum = (i+1)+(pageNumber-1)*10;}
+                        var orderStatusNum =data.data[i].orderStatus;
+
+                        if(orderStatusNum==101){orderStatus = '预约中';tapOn = 0;RightArrow = 'myorder_div01';}
+                        else if(orderStatusNum==102){orderStatus = '预定待验证';tapOn = 0;RightArrow = 'myorder_div01';}
+                        else if(orderStatusNum==103){orderStatus = '已支付';tapOn = 1;RightArrow = 'myorder_div02';}
+                        else if(orderStatusNum==104){orderStatus = '订单完成';tapOn = 1;RightArrow = 'myorder_div02';}
+                        else if(orderStatusNum==105){orderStatus = '订单取消';tapOn = 0;RightArrow = 'myorder_div01';}
+                        else if(orderStatusNum==106){orderStatus = '超时未支付';tapOn = 0;RightArrow = 'myorder_div01';}
+                        else if(orderStatusNum==107){orderStatus = '故障关闭';tapOn = 1;RightArrow = 'myorder_div02';}
+                        else if(orderStatusNum==108){orderStatus = '超时已支付';tapOn = 0;RightArrow = 'myorder_div01';}
+                        else if(orderStatusNum==109){orderStatus = '验证待支付';tapOn = 0;RightArrow = 'myorder_div01';}
+                        else if(orderStatusNum==110){orderStatus = '故障已支付';tapOn = 0;RightArrow = 'myorder_div01';}
+                        else if(orderStatusNum==111){orderStatus = '清洁中';tapOn = 0;RightArrow = 'myorder_div01';}
+                        else if(orderStatusNum==112){orderStatus = '烘干待延长';tapOn = 0;RightArrow = 'myorder_div01';}
+
+                        if(data.data[i].deviceInfo){deviceInfo = data.data[i].deviceInfo.name;}else{deviceInfo = '';}
+
+                        myOrder +='<section class="myorder_box" tapOn="'+tapOn+'" orderId="'+data.data[i].orderId+'" orderStatus="'+data.data[i].orderStatus+'">';
+                        myOrder = myOrder+'<p class="myorder_p01">'+myOrderNum+'</p>';
+                        myOrder = myOrder+'<div class="'+RightArrow+'">';
+                        myOrder = myOrder+'<p class="myorder_p02 myorder_porder">订单号:'+data.data[i].orderCode+'</p>';
+                        myOrder = myOrder+'<p class="myorder_p02 myorder_pmachine">'+deviceInfo+'</p>';
+                        myOrder = myOrder+'<p class="myorder_p02">';
+                        myOrder = myOrder+'<span class="myorder_s01">￥'+data.data[i].price+'</span>';
+                        myOrder = myOrder+'<span class="myorder_s02">'+orderStatus+'</span>';
+                        myOrder = myOrder+'</p>';
+                        if(orderStatusNum==102){
+                            myOrder = myOrder+'<div class="myo_bar_select"><div class="myo_bar_left" orderId="'+data.data[i].orderId+'">取消订单</div><div class="myo_bar_right" orderId="'+data.data[i].orderId+'">验证机器</div></div>';
+                        }
+                        if(orderStatusNum==109){
+                            myOrder = myOrder+'<div class="myo_bar_select"><div class="myo_bar_left" orderId="'+data.data[i].orderId+'">取消订单</div><div class="myo_bar_right" orderId="'+data.data[i].orderId+'">继续支付</div></div>';
+                        }
+                        myOrder = myOrder+'</div>';
+                        //myOrder = myOrder+'<p class="myorder_p03 '+RightArrow+'"><img src="../images/wx_rightbtn02.png" /></p>';
+                        myOrder = myOrder+'</section>';
+
+                        myOrder = '<li class="ne_free">'+
+                            '<div class="ne_place">'+
+                            '<p class="ne_placep1">格力智能洗衣机</p>'+
+                           ' <p class="ne_placep2">洗衣结束</p>'+
+                            '</div>'+
+                            '<div class="ne_distance">已完成</div>'+
+                            '<div class="ne_active">'+
+                            '<div class="ne_active_wrap">'+
+                            '<div class="ne_active_left_juan">7天酒店团结湖店</div>'+
+                        '<div class="ne_active_right">轻柔</div>'+
+                            '</div>'+
+                            '<div class="ne_active_wrap">'+
+                            '<div class="ne_active_left_zhe">订单号：12017060629576482</div>'+
+                        '<div class="ne_active_right">2017/06/06/14:59</div>'+
+                        '</div>'+
+                        '</div>'+
+
+                        '<div class="ne_active" style="height: 4rem">'+
+                            '<div class="ne_active_wrap" style="height: 3rem">'+
+                            '<div class="ne_active_left_juan" style="line-height: 3rem;font-size: 1.5rem;color: #00AEFF";></div>'+
+                        '<div class="ne_active_right" style="line-height: 3rem;font-size: 1.5rem;color: #00AEFF">再次使用</div>'+
+                            '</div>'+
+                            '</div>'+
+
+                            '</li>';
+
+                    }
+                    $("#ul-hh").children("ul").append(myOrder);
+
+                }
+
+
+
+                if(pageNumber==1){							//第一次加载条数小于10条隐藏下拉刷新
+                    var gdn = $("#scroller-content>section").length;
+                    console.log(gdn);
+                    if(gdn<10){
+                        $("#scroller-pullUp").css("display","none");
+                    }
+                }
+            }
+        });
+    }
+
+
+    //公告
+//    pageNoitce(pageNoticeIndex, 0);    //初始化加载数据    第一个参数是当前页，第二个参数是当前选中的tab的索引
+//    function pageNoitce(pageIndex, curIndex) {
+//        var html = "";
+//        $.post(url, data, function (success) {
+//            if (success != null && success.status == 1) {
+//                for (var i = 0; i < success.data.length; i++) {
+//                    html += '<li><a href="#">'+success.data[i].Title + '</a></li>';
+//                }
+//
+//                var pageCount = parseInt(success.page.totRecord);
+//                var page = Math.ceil(pageCount / pageSize);
+//                if (page == pageIndex) {
+//                    load1More = true;
+//                }
+//
+//                $(".od-tabs-con").eq(curIndex).children("ul").append(html);
+//            }
+//        }, "json");
+//    }
+//
+//    //消息
+//    pageMsg(pageMsgIndex, 1);
+//    function pageMsg(pageIndex, curIndex) {
+//        var html = "";
+//        $.post(url, data, function (res) {
+//            if (res != null && res.status == 1) {
+//                for (var i = 0; i < res.data.length; i++) {
+//                    html += '<li><a href="#">' + res.data[i].Title + '</i></a></li>';
+//                }
+//
+//                var pageCount = parseInt(res.page.totRecord);
+//                var page = Math.ceil(pageCount / pageSize);
+//                if (page == pageIndex) {
+//                    load2More = true;
+//                }
+//
+//                $(".tabs_con").eq(curIndex).children("ul").append(html);
+//            }
+//        },"json");
+//    }
+
+
+    var myScroll;
+
+    function pullDownAction () {
+        setTimeout(function () {
+            myScroll.refresh();
+        }, 1000);
+    }
+
+    function pullUpAction () {
+        setTimeout(function () {
+            var curIndex = $(".cur").index();
+            if(curIndex == 0){
+                if(!load1More){
+                    pageNoticeIndex += 1;
+//                    pageNoitce(pageNoticeIndex, curIndex);
+                    order_getData(1,0);
+                }else{
+                    $("#pullUp").html("已无更多数据");
+                }
+
+            }else if(curIndex == 1){
+                if(!load2More){
+                    pageMsgIndex += 1;
+//                    pageMsg(pageMsgIndex, curIndex);
+                    order_getData(1,0);
+                }else{
+                    $("#pullUp").html("已无更多数据");
+                }
+            }
+            myScroll.refresh();
+        }, 1000);
+    }
+
+    function loaded() {
+        var pullDownEl = $('#pullDown'),
+            pullDownHeight = pullDownEl.height(),
+            pullUpEl = $('#pullUp'),
+            pullUpHeight = pullUpEl.height(),
+            pullDownLabel = $('.pullDownLabel'),
+            pullUpLabel = $('.pullUpLabel');
+
+        myScroll = new iScroll('scroll-wrapper', {
+            topOffset: pullDownHeight - 5,
+            onRefresh: function () {
+                if (pullDownEl.hasClass('scroll-loading')) {
+                    pullDownEl.removeClass();
+                    pullDownLabel.html("下拉刷新");
+                } else if (pullUpEl.hasClass('scroll-loading')) {
+                    pullUpEl.removeClass();
+                    pullUpLabel.html("上拉加载更多");
+                }
+            },
+            onScrollMove: function () {
+                if (this.y > 5 && !pullDownEl.hasClass('flip')) {
+                    pullDownEl.removeClass().addClass('flip');
+                    pullDownLabel.html("释放立即刷新");
+                    this.minScrollY = 0;
+                } else if (this.y < 5 && pullDownEl.hasClass('flip')) {
+                    pullDownEl.removeClass();
+                    pullDownLabel.html("下拉刷新");
+                    this.minScrollY = -pullDownHeight;
+                } else if (this.y < (this.maxScrollY - 5) && !pullUpEl.hasClass('flip')) {
+                    pullUpEl.removeClass().addClass('flip');
+                    pullUpLabel.html("释放加载更多");
+                    this.maxScrollY = this.maxScrollY;
+                } else if (this.y > (this.maxScrollY + 5) && pullUpEl.hasClass('flip')) {
+                    pullUpEl.removeClass();
+                    pullUpLabel.html("上拉加载更多");
+                    this.maxScrollY = pullUpHeight;
+                }
+            },
+            onScrollEnd: function () {
+                if (pullDownEl.hasClass('flip')) {
+                    pullDownEl.removeClass().addClass('scroll-loading');
+                    pullDownLabel.html("加载中...");
+                    pullDownAction();
+                } else if (pullUpEl.hasClass('flip')) {
+                    pullUpEl.removeClass().addClass('scroll-loading');
+                    pullUpLabel.html("加载中...");
+                    pullUpAction();
+                }
+            }
+        });
+    }
+
+	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+</script>
+</body>
+</html>
