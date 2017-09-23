@@ -14,28 +14,18 @@
     <script src="../../../public/js/jquery-2.0.2.min.js"></script>
     <script src="js/radialIndicator.min.js"></script>
 <script>
-//    $('#indicatorContainer5').radialIndicator({
-//        showPercentage : false // option
-//    });
-//
-//    //or using native javascript
-//    var progObj = radialIndicator('#indicatorContainer5' , {
-//        showPercentage : false // option
-//    });
-
-    //jquery
-//    $('#indicatorContainer').radialIndicator();
-//    var radialObj = $('#indicatorContainer').data('radialIndicator');
 
     //Vanilla JS
     var radialObj = radialIndicator('#indicatorContainer');
 
-    //getter
-    var interpolate = radialObj.option('interpolate');
-
     //setter
-    radialObj.option('interpolate',false);
+    radialObj.option('minValue',0);
+    radialObj.option('maxValue',100);
     radialObj.option('radius',80);
+
+    radialObj.value("82分钟");
+    radialObj.animate(80);
+
 
 </script>
 

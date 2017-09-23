@@ -46,12 +46,12 @@ a{text-decoration:none;color:#666;}
 	<li class="cur">公告</li>
 	<li>消息</li>
 </ul>
-<div id="wrapper">			
+<div id="wrapper">
 	<div id="scroller">
 		<div class="pullDown" id="pullDown">
 			<div class="pullDownIcon"></div><div class="pullDownLabel">下拉刷新</div>
 		</div>
-		<div class="tabs_con" style="display:block;">
+		<div id="tab1" class="tabs_con" style="display:block;">
 			<ul>
 				<li>您好，这里是中华人民共和国！</li>
 				<li>您好，这里是中华人民共和国！</li>
@@ -59,7 +59,7 @@ a{text-decoration:none;color:#666;}
 				<li>您好，这里是中华人民共和国！</li>
 				<li>您好，这里是中华人民共和国！</li>
 			</ul>
-		</div>		
+		</div>
 		<div class="tabs_con">
 			<ul>
 				<li>这里是中华人民共和国！</li>
@@ -72,7 +72,7 @@ a{text-decoration:none;color:#666;}
 		<div class="pullUp" id="pullUp">
 			<div class="pullUpIcon"></div><div class="pullUpLabel">上拉加载更多</div>
 		</div>
-	</div>			
+	</div>
 </div>
 <script src="js/zepto.min.js"></script>
 <script src="js/iscroll.js"></script>
@@ -85,8 +85,8 @@ a{text-decoration:none;color:#666;}
 			curIndex = $this.index();
 		$this.addClass('cur').siblings('li').removeClass('cur');
 		$('.tabs_con').eq(curIndex).css("display","block").siblings('.tabs_con').css("display","none");
-		myScroll.scrollTo(0, 0);   //确保每次切换时scroll回到初始起点
-		myScroll.refresh();        //每次切换时都要调用界面更新方法
+//		myScroll.scrollTo(0, 0);   //确保每次切换时scroll回到初始起点
+//		myScroll.refresh();        //每次切换时都要调用界面更新方法
 		if(curIndex == 0){
 			if(!tabLoadEndArray[curIndex]){
 				$("#pullUp").html('<div class="pullUpIcon"></div><div class="pullUpLabel">上拉加载更多</div>');
@@ -100,11 +100,11 @@ a{text-decoration:none;color:#666;}
 				$("#pullUp").html("已无更多数据");
 			}
 		}
-	});	
+	});
 
 	var myScroll;
 	function pullDownAction () {
-		setTimeout(function () {			
+		setTimeout(function () {
 			myScroll.refresh();
 		}, 1000);
 	}
@@ -126,14 +126,14 @@ a{text-decoration:none;color:#666;}
                     tabLoadEndArray[curIndex] = true;
                     break;
                 }
-			
+
 				if(curIndex == 0){
 					html += '<li>test您好，这里是中华人民共和国！'+tabLenghtArray[curIndex]+'</li>';
 				}else if(curIndex == 1){
 					html += '<li>test这里是中华人民共和国！'+tabLenghtArray[curIndex]+'</li>';
 				}
 			}
-			
+
 			$(".tabs_con").eq(curIndex).children("ul").append(html);
 			myScroll.refresh();
 		}, 1000);
@@ -142,13 +142,16 @@ a{text-decoration:none;color:#666;}
 	function loaded() {
 		var pullDownEl = $('#pullDown'),
 			pullDownHeight = pullDownEl.height(),
-			pullUpEl = $('#pullUp'),	
+			pullUpEl = $('#pullUp'),
 			pullUpHeight = pullUpEl.height(),
 			pullDownLabel = $('.pullDownLabel'),
 			pullUpLabel = $('.pullUpLabel');
-		
+
 		myScroll = new iScroll('wrapper', {
 			topOffset: pullDownHeight - 5,
+            onBeforeScrollStart:function() {
+				console.log("start");
+            },
 			onRefresh: function () {
 				if (pullDownEl.hasClass('loading')) {
 					pullDownEl.removeClass();
@@ -158,9 +161,9 @@ a{text-decoration:none;color:#666;}
 					pullUpLabel.html("上拉加载更多");
 				}
 			},
-			onScrollMove: function () {				
+			onScrollMove: function () {
 				if (this.y > 5 && !pullDownEl.hasClass('flip')) {
-					//console.log(this.dirY);    //此处的this.dirY为-1		
+					//console.log(this.dirY);    //此处的this.dirY为-1
 					pullDownEl.removeClass().addClass('flip');
 					pullDownLabel.html("释放立即刷新");
 					this.minScrollY = 0;
@@ -182,16 +185,27 @@ a{text-decoration:none;color:#666;}
 			onScrollEnd: function () {
 				if (pullDownEl.hasClass('flip')) {
 					pullDownEl.removeClass().addClass('loading');
-					pullDownLabel.html("加载中...");				
+					pullDownLabel.html("加载中...");
 					pullDownAction();
 				} else if (pullUpEl.hasClass('flip')) {
 					pullUpEl.removeClass().addClass('loading');
-					pullUpLabel.html("加载中...");				
+					pullUpLabel.html("加载中...");
 					pullUpAction();
 				}
-			}
+                console.log("onScrollEnd");
+			},
+            onTouchEnd:function() {
+                console.log("touchend")
+            },
+            onDestroy:function() {
+                console.log("end");
+            }
 		});
 	}
+
+	setInterval(function() {
+		pullDownAction()
+    },2000);
 
 	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 	document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);

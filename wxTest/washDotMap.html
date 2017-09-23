@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta content="telephone=no" name="format-detection" />
+    <title>洗衣机列表</title>
+    <script src="js/jquery-2.0.2.min.js"></script>
+
+    <script src="js/jweixin-1.0.0.js"></script>
+</head>
+<body>
+
+
+<div id="tap-div" style="position:relative;left:20%;width: 60%;height: 5rem;background-color: #0B7ECE"></div>
+<p style="color: black;font-size: 1.2rem;word-break:break-all;">扫码结果：<span id="result" style="color: green;font-size: 1rem">fadfadsfadfafadfasfasfasdfasfadsfasfasfasfdasdfasf</span>></p>
+
+
+</body>
+
+<script>
+    //点击扫描二维码
+//    $(document).on("touchend","#tap-div", function() {
+//        $.ajax({
+//            type: "GET",
+//            url:"https://www.vrf.com/WashCallApi/common/wxcheckAppController/wxAccessToken.api",
+//            data: {
+//                url: window.location.href.split("#")[0],
+//            },
+//            dataType: "jsonp",
+//            jsonp: "outAccess",
+//            async: "false",
+//            success: function(b) {
+//                "00000" == b.retCode || (wx.config({
+//                    debug: !1,
+//                    appId: "wx54f89e939f8503c3",
+//                    timestamp: b.data.timestamp,
+//                    nonceStr: b.data.nonceStr,
+//                    signature: b.data.signature,
+//                    jsApiList: ["scanQRCode"]
+//                }), wx.ready(function() {
+//                    wx.scanQRCode({
+//                        needResult: 1,
+//                        scanType: ["qrCode", "barCode"],
+//                        success: function(a) {
+//                            a = a.resultStr;
+//                            if (-1 != a.indexOf("\x3d")) {
+//                                var b = a.split("\x3d")[0];
+//                                "http://uhome.haier.net/download/app/washcall/index.html?devid" == b || "http://app.mrhi.cn/download/app/washcall/index.html?devid" == b ? (a = a.split("?")[1], a = a.split("\x3d")[1], window.location.href = "washDetails.html?comeType\x3d2\x26deviceId\x3d" + a) : setTimeout(function() {
+//                                        alert("扫描二维码不合法")
+//                                    }, 500)
+//                            } else setTimeout(function() {
+//                                alert("扫描二维码不合法")
+//                            }, 500)
+//                        }
+//                    })
+//                }), wx.error(function(a) {}))
+//            }
+//        })
+//    })
+
+    function isMobile(){
+        var browser={
+            versions:function(){
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {//移动终端浏览器版本信息
+                    trident: u.indexOf('Trident') > -1, //IE内核
+                    presto: u.indexOf('Presto') > -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') > -1, //是否iPad
+                    webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+                    weixin: u.indexOf('MicroMessenger') > -1, //是否微信
+                    qq: u.match(/\sQQ/i) == " qq" //是否QQ
+                };
+            }(),
+            language:(navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+
+        if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||
+            browser.versions.iPhone || browser.versions.iPad){
+           return true;
+        }else {
+            return false;
+        }
+    }
+
+    alert(isMobile());
+
+    $("#tap-div").on("touchstart", function() {
+        console.log("1");
+
+    })
+
+    $("#tap-div").on("touchmove", function(e) {
+        console.log("2");
+        var _touch = e.originalEvent.touches[0];
+        console.log("X:"+(Number(_touch.pageX)-Number($(this).offset().left)));
+        console.log("Y:"+(Number(_touch.pageY)-Number($(this).offset().top)));
+    })
+//    document.addEventListener('touchmove', function(e) {
+//        console.log("2");
+//        console.log("X:"+e.touches[0].pageX);
+//    }, false);
+    $("#tap-div").on("touchend", function() {
+        console.log("3");
+    })
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
