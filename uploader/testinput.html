@@ -1,0 +1,19 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+    <TITLE> New Document </TITLE>
+    <META NAME="Author" CONTENT="oscar999">
+    <script>
+        function getSelectFile()
+        {
+            var fileName = document.getElementById("fileSelect").value;
+            alert(fileName);
+        }
+    </script>
+</HEAD>
+
+<BODY>
+<input id="fileSelect" type="file" />
+<input value="Get File" type="button" onclick="getSelectFile();"/>
+</BODY>
+</HTML>

@@ -20,4 +20,28 @@
     map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
     map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+    var cr=new BMap.CopyrightControl({anchor:BMAP_ANCHOR_TOP_LEFT,offset:new BMap.Size(150,200)});
+    map.addControl(cr);
+    cr.addCopyright({id:1,content:"<img src='./images/baidu.png' style='width:20px;' />"});
+
+    var point = new BMap.Point(116.404, 39.915);
+    var marker = new BMap.Marker(point);  // 创建标注
+    map.addOverlay(marker);               // 将标注添加到地图中
+//    map.addEventListener('ondragging', function(){
+//        marker.setPosition(map.getCenter());
+//    });
+
+    map.addEventListener("moveend",function(){
+        if(marker){
+            marker.setPosition(map.getCenter());
+        }
+    });
+    map.addEventListener("zoomend",function(){
+        if(marker){
+            marker.setPosition(map.getCenter());
+        }
+    });
+
+
 </script>
