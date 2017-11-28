@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>cookies</title>
+    <script type="text/javascript" src="cookie.js"></script>
+    <script type="text/javascript" language="javascript">
+        window.onload=function(){
+            var ck=new Cookie("HasLoaded");
+            if(ck.Read()==null){//未加载过，Cookie内容为空
+                alert("first");
+                ck.Write("true");  //设置Cookie。只要IE不关闭，Cookie就一直存在
+            }
+            else{//Cookie存在，表示页面是被刷新的
+                alert("refresh");
+            }
+        }
+    </script>
+</head>
+<body>
+</body>
+</html></html>

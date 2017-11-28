@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../dist/dialog.css">
+
+</head>
+<body>
+
+</body>
+<script src="../dist/jquery-2.2.3.min.js"></script>
+<script src="../dist/dialog.js"></script>
+<script>
+    $.declare('你确定要删除这条消息吗? ',null,function(type){
+//        $.alert('您点击了'+type);
+        this.hide();
+    });
+</script>
+</html>

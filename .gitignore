@@ -1,2 +1,4 @@
 .idea/*
 unitTest/node_modules/*
+dialog/dialog-master/dialog-master/node_modules/*
+dialog/dialog-master/dialog-master/.sass-cache

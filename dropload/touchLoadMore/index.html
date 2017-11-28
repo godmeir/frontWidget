@@ -171,7 +171,8 @@ a{text-decoration:none;color:#666;}
 					pullDownEl.removeClass();
 					pullDownLabel.html("下拉刷新");
 					this.minScrollY = -pullDownHeight;
-				} else if (this.y < (this.maxScrollY - 5) && this.dirY && this.dirY > -1 && !pullUpEl.hasClass('flip')) {    //此处加一个&& this.dirY的判断就可以防止在左滑或右滑时触发上拉加载更多事件，因为左滑或右滑时，this.dirY都为0，那么在if中this.dirY=0就是false，而"逻辑与"在判断时只要有一个为false，则通通为false。这里之所以又加一个&& this.dirY > -1的判断，是因为在下拉时this.dirY为-1，在if中this.dirY=-1就为true，结合以上的注释，如果不加这个判断就会在下拉刷新时触发上拉加载更多事件，所以要加上&& this.dirY > -1。如果不在乎下拉刷新时触发上拉加载更多事件，则只需加上&& this.dirY这个条件即可，即else if (this.y < (this.maxScrollY - 5) && this.dirY && !pullUpEl.hasClass('flip'))，不需要再判断它是否大于-1，而且当页面中的内容列表大于一定高度（我也不知道这个高度到底是多少，是怎么来的，而且也不太清楚写这些代码的人当时是怎么考虑的，而且我把!pullUpEl.hasClass('flip')这个判断去掉，似乎对整个效果也没有什么影响）时，下拉刷新也是不会再触发上拉加载更多事件的。
+				} else if (this.y < (this.maxScrollY - 5) && this.dirY && this.dirY > -1 && !pullUpEl.hasClass('flip')) {
+				    //此处加一个&& this.dirY的判断就可以防止在左滑或右滑时触发上拉加载更多事件，因为左滑或右滑时，this.dirY都为0，那么在if中this.dirY=0就是false，而"逻辑与"在判断时只要有一个为false，则通通为false。这里之所以又加一个&& this.dirY > -1的判断，是因为在下拉时this.dirY为-1，在if中this.dirY=-1就为true，结合以上的注释，如果不加这个判断就会在下拉刷新时触发上拉加载更多事件，所以要加上&& this.dirY > -1。如果不在乎下拉刷新时触发上拉加载更多事件，则只需加上&& this.dirY这个条件即可，即else if (this.y < (this.maxScrollY - 5) && this.dirY && !pullUpEl.hasClass('flip'))，不需要再判断它是否大于-1，而且当页面中的内容列表大于一定高度（我也不知道这个高度到底是多少，是怎么来的，而且也不太清楚写这些代码的人当时是怎么考虑的，而且我把!pullUpEl.hasClass('flip')这个判断去掉，似乎对整个效果也没有什么影响）时，下拉刷新也是不会再触发上拉加载更多事件的。
 					//console.log(this.dirY);    //此处的this.dirY在左滑或右滑时为0，在上拉时为1，下拉时由于加了以上的判断，这里就不会执行了。
 					pullUpEl.removeClass().addClass('flip');
 					pullUpLabel.html("释放加载更多");

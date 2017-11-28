@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>xyPop弹窗 - (测试版 v1.0)</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta name="format-detection" content="telephone=no" />
+    <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="xyPop.js"></script>
+</head>
+<body>
+
+<div style="font-size:1rem;background:#fcc;">
+    <ul>
+        <li><a href="javascript:;" id="KKK">xyPop消息提示(多按钮事件测试)</a></li><br />
+        <script type="text/javascript">
+            $(function() {
+                $("#KKK").on("click", function(){
+                    /* 1.===原始方法调用 (object模式) */
+                    xyPop({
+                        id: "pop_msg",
+                        title: "弹窗提醒",
+                        content: "提示：数据请求成功，正等待服务器回应！",
+                        type: "success",
+                        padding: 50,
+                        btn: ["确定按钮","按钮1","按钮2", "按钮3"],
+                        btn1: function(){
+                            //alert("同意");
+                            xyPop("我只是一个简单的提示!");
+                        },
+                        btn2: function(){
+                            alert("我是关闭执行");
+                        },
+                        btn3: function(){
+                            xyPop("我是两个参数调用后的执行效果，确定要删除这条数据吗？", function(i){
+                                xyPop.msg("恭喜，数据删除成功！", {type: "success", lock: 1});
+                            });
+                        },
+                        btn4: function(i){
+                            alert("关闭");
+                        },
+                        fixed: true
+                    });
+
+                    //=================================================================================
+                    /* 2.===原始方法调用 (简单调用) */
+                    //xyPop("我是一个参数测试【信息内容】!");
+                    //---两个参数：
+                    //xyPop("我是二个参数测试【信息内容+图标】!", {type: "error"});
+                    //xyPop("我是二个参数测试【信息内容+执行函数】，确定要删除这条数据吗？", function(){
+                    //xyPop("调用后的执行效果，数据删除成功！");
+                    //});
+                    //---三个参数：
+                    //xyPop("我是三个参数测试【信息内容+图标+执行函数】确定要编辑这条数据吗？", {type: "confirm",lock:1}, function(){
+                    //xyPop("调用【图标+执行函数】后的结果！");
+                    //});
+
+                    /* 3.===xyPop.msg调用 */
+                    //xyPop.msg("只是简单的提示！");
+                    //xyPop.msg("只是【附带参数】简单的提示！", {type:"success", lock:1});
+                    //xyPop.msg("只是【附带参数】简单的提示！", function(){
+                    //xyPop("附带参数提示成功！", "success");
+                    //});
+                    /* xyPop.msg("您觉得这个图片很漂亮吗", {
+                        time: 0
+                        ,bottom: true
+                        ,type: 'confirm'
+                        ,btn: ['必须啊', '丑到爆']
+                        ,btn1: function(){
+                            xyPop.msg('雅蠛蝶 O.o', {
+                                time: 0
+                                ,bottom: true
+                                ,btn: ['按钮1','按钮2','按钮3']
+                                ,btn1: function(_i){
+                                    xyPop("3s后关闭窗口！！！", 3);
+                                }
+                                ,btn3: function(_i){
+                                    _i.close(); //这里可以调用本身关闭
+                                }
+                            });
+                        }
+                    }); */
+
+
+
+                    /* 4.===xyPop.load调用 (加载外部css/js) */
+                    //xyPop.load("skin/xyPop.css");
+                    //xyPop.load("http://libs.baidu.com/jquery/1.9.1/jquery.min.js");
+                    //xyPop.load("skin/xyPop.css, aaaa.css");
+                    //xyPop.load(["skin/xyPop.css", "aaaa.css"]);
+                });
+            });
+        </script>
+        <li><a href="javascript:;" onclick="xyPop({id:'xyPop_follow', type:'confirm', content:'您确定要删除这条数据吗？',btn:['确定','取消'], onOk:function(){
+			xyPop.msg('数据删除成功！', {lock:1});
+		}});">xyPop测试(自定义按钮、返回函数)</a></li><br />
+
+        <li><a href="javascript:;" onclick="xyPop({content:'您没有填写完整信息!'});">xyPop测试(内容content提示——短内容)</a></li><br />
+        <li><a href="javascript:;" class="followid22" onclick="xyPop({content:'对不起，用户名格式有误，用户名只能输入 汉字字母和数字下划线!'});">xyPop测试(内容content提示——长内容)</a></li><br />
+
+        <li><a href="javascript:;" onclick="xyPop({title:'定时关闭', content:'本窗口将在3s后关闭!', time:3, lock:1});">xyPop定时关闭(3s后关闭)</a></li><br />
+
+        <li><a href="javascript:;" onclick="xyPop({title:false, content:'本窗口没有标题栏提示!'});">xyPop测试(没有顶部标题栏 title:false)</a></li><br />
+
+        <li><a href="javascript:;" onclick="xyPop({title:'无底部按钮', content:'本窗口没有底部按钮!', bottom:false});">xyPop测试(没有底部按钮 bottom:false)</a></li><br />
+
+        <li><a href="javascript:;" onclick="xyPop.msg('本窗口没有顶部及底部的超精简提示!');">xyPop测试(没有顶部及底部的超精简提示)</a></li><br />
+
+    </ul>
+</div>
+</body>
+</html>

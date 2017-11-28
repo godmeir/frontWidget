@@ -3,8 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="x5-orientation" content="portrait"><!-- QQ强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0" />
+    <style>
+        img{
+            height:150px;
+            width:150px;
+        }
+        img:hover{
+            height:550px;
+            width:550px;
+        }
+        img{
+            transition: 2s height cubic-bezier(.45,-0.73,.57,1.51);
+        }
+    </style>
 </head>
 <body>
+<img id="img" src="image/image.jpg">
+<div id="div1" style="height: 150px;width:150px;background: red"></div>
 
 </body>
+<script src="../public/js/jquery-2.0.2.min.js"></script>
+<script src="../ScreenLog/screenlog.js"></script>
+<script>
+    if(screenLog) {
+        screenLog.init({autoScroll: true, touch_ball: true});
+    }
+    document.addEventListener('contextmenu', function(e){
+        console.log("contextmenu");
+        e.preventDefault();
+    });
+
+    $('#div1').on("touchend",function() {
+        setTimeout(function() {
+            console.log("touchend");
+        },2000)
+
+    })
+</script>
 </html>

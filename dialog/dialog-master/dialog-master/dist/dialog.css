@@ -108,7 +108,7 @@
   width: 350px;
   background-color: #fff; }
 
-.ui-confirm-title, .ui-alert-title {
+.ui-confirm-title, .ui-alert-title, .ui-declare-title {
   text-align: center;
   font-size: 14px;
   color: #333;
@@ -176,5 +176,23 @@
   .ui-alert-tip .ui-alert-title {
     color: #fff !important;
     padding: 27px 25px; }
+
+.ui-declart-head {
+  height: 45px;
+  line-height: 45px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  pointer-events: auto;
+  text-align: center;
+  width: 100%;
+  border-bottom: 1px solid #dcdcdc;
+  padding: 0;
+  margin: 0; }
+
+.ui-declare-title {
+  padding-left: 10px;
+  padding-right: 10px;
+  max-height: 300px;
+  overflow: auto; }
 
 /*# sourceMappingURL=dialog.css.map */
