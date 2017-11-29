@@ -129,11 +129,11 @@
         }
         if(settings.type === "declare") {
             var dialog = new Dialog();
-            var html = '<div class="ui-confirm-title">' + settings.content + '</div>';
+            var html = ' <div class="ui-declart-head">免责声明</div><div class="ui-declare-title">' + settings.content + '</div>';
             var action = '';
             if(!settings.buttons) {
                 settings.buttons = [{
-                    'yes': '确定'
+                    'yes': '同意'
                 }, {
                     'no': '取消'
                 }];
@@ -143,13 +143,13 @@
             for(var i = 0, l = settings.buttons.length; i < l; i++) {
                 var item = settings.buttons[i];
                 if(item.yes) {
-                    btnstr += '<td><button class="ui-confirm-submit " data-type="yes">' + item.yes + '</button></td>';
+                    btnstr += '<td><button class="ui-declare-submit " data-type="yes">' + item.yes + '</button></td>';
                 }
                 if(item.no) {
-                    btnstr += '<td><button class="ui-confirm-no" data-type="no">' + item.no + '</button></td>';
+                    btnstr += '<td><button class="ui-declare-no" data-type="no">' + item.no + '</button></td>';
                 }
                 if(item.close) {
-                    btnstr += '<td><button class="ui-confirm-close js-dialog-close" data-type="close">' + item.close + '</button></td>';
+                    btnstr += '<td><button class="ui-declare-close js-dialog-close" data-type="close">' + item.close + '</button></td>';
                 }
             }
             action = '<table class="ui-dialog-action"><tr>' + btnstr + '</tr></table>';
@@ -169,13 +169,13 @@
                     this.dispose();
                 },
                 beforeShow: function(c) {
-                    dialog.touch($('.ui-confirm-submit', c), function() {
+                    dialog.touch($('.ui-declare-submit', c), function() {
                         settings.callback && settings.callback.call(dialog, 'yes', c);
                     });
-                    dialog.touch($('.ui-confirm-no', c), function() {
+                    dialog.touch($('.ui-declare-no', c), function() {
                         settings.callback && settings.callback.call(dialog, 'no', c);
                     });
-                    dialog.touch($('.ui-confirm-close', c), function() {
+                    dialog.touch($('.ui-declare-close', c), function() {
                         settings.callback && settings.callback.call(dialog, 'close', c);
                     });
                 }

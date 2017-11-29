@@ -152,7 +152,7 @@
   cursor: pointer;
   box-sizing: border-box;
   padding: 0; }
-.ui-dialog-action .ui-confirm-close, .ui-dialog-action .ui-confirm-no {
+.ui-dialog-action .ui-confirm-close, .ui-dialog-action .ui-confirm-no, .ui-dialog-action .ui-declare-close, .ui-dialog-action .ui-declare-no {
   color: #747474;
   border-left: 1px solid #dcdcdc; }
 
